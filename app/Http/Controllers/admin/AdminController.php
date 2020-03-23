@@ -140,7 +140,7 @@ class AdminController extends Controller
     function get_broswer()
     {
         $sys = $_SERVER['HTTP_USER_AGENT'];  //获取用户代理字符串
-        Log::info('-$sys--'.json_encode($sys));
+//        Log::info('-$sys--'.json_encode($sys));
         if (stripos($sys, "Firefox/") > 0) {
             preg_match("/Firefox\/([^;)]+)+/i", $sys, $b);
             $exp[0] = "Firefox";
@@ -184,7 +184,7 @@ class AdminController extends Controller
      */
     function get_os(){
         $agent = $_SERVER['HTTP_USER_AGENT'];
-        Log::info('----$agent----'.json_encode($agent,300));
+//        Log::info('----$agent----'.json_encode($agent,300));
         $os = false;
         
         if (preg_match('/win/i', $agent) && strpos($agent, '95'))

@@ -2,7 +2,6 @@
 /**
  * Created by PhpStorm.
  * User: caoxiaobin
- * Date: 2018/12/25
  * Time: 2:27 PM
  */
 namespace App\Helpers;

@@ -68,7 +68,6 @@ class AdminUser
     /**
      * @return mixed
      * @description 缓存用户的左侧菜单永久有效， 根据左侧菜单和点击的Action 更改菜单的选中状态 Active
-     * @auther YaoYao
      */
     public function leftMenu()
     {
