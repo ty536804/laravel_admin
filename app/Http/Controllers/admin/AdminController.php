@@ -126,12 +126,6 @@ class AdminController extends Controller
         return view("admin.login");
     }
     
-    public function getSet(){
-        $account = SysAdminUser::find($this->uid);
-        $data['userinfo'] =  $account;
-        return view('Admin.set',$data);
-    }
-    
     /**
      * @return string
      * @description 区分浏览器

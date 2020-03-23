@@ -14,3 +14,7 @@ Route::group(['middleware'=>'adminAuth','namespace' => 'Admin','prefix' => 'admi
     Route::get('index','AdminController@index');//首页
     Route::get('main','AdminController@main'); //首页body展示
 });
+
+Route::group(['middleware'=>'adminAuth','namespace' => 'Admin','prefix' => 'admin'], function (){
+    Route::post('update','AdminController@updateInfo');
+});

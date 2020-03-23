@@ -1,9 +1,8 @@
-@extends('admin.base')
+@extends('master.base')
 
 @section('js')
     <!-- Flot -->
     <script src="{{asset("/admin/js/plugins/flot/jquery.flot.js")}}"></script>
-
     <!--flotdemo-->
     <script type="text/javascript">
         $(function() {
