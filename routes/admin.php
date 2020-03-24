@@ -16,5 +16,6 @@ Route::group(['middleware'=>'adminAuth','namespace' => 'Admin','prefix' => 'admi
 });
 
 Route::group(['middleware'=>'adminAuth','namespace' => 'Admin','prefix' => 'admin'], function (){
-    Route::post('update','AdminController@updateInfo');
+    Route::post('update','UserController@updateInfo');
+    Route::post('change','UserController@change');
 });

@@ -9,74 +9,53 @@
                                 <span class="clear">
                                     <span class="block m-t-xs" style="font-size:20px;">
                                         <i class="fa fa-area-chart"></i>
-                                        <strong class="font-bold">hAdmin</strong>
+                                        <strong class="font-bold">魔法数学</strong>
                                     </span>
                                 </span>
                     </a>
                 </div>
-                <div class="logo-element">hAdmin
+                <div class="logo-element">魔法数学
                 </div>
             </li>
 
             <li>
-                <a class="J_menuItem" href="index_v1.html">
+                <a class="J_menuItem" href="{{\Illuminate\Support\Facades\URL::action("Admin\AdminController@index")}}">
                     <i class="fa fa-home"></i>
                     <span class="nav-label">主页</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class="fa fa fa-bar-chart-o"></i>
-                    <span class="nav-label">轮播图</span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a class="J_menuItem" href="graph_flot.html">列表</a>
+            <?php
+            $user = new \App\Services\AdminUser();
+            $leftMenu  = $user->leftMenu();
+            $mainMenu = $leftMenu[0];
+            ?>
+            @foreach($mainMenu as $menu)
+                @if($menu['purl']!='#')
+                    <li class="{{$menu['active']}}">
+                        <a href="{{URL::action($menu['purl'])}}" class="hvr-wobble-skew">
+                            <i class="fa {{$menu['icon']}}"></i> <span>{{$menu['pname']}}</span>
+                            {{--<small class="label pull-right bg-green">new</small>--}}
+                        </a>
                     </li>
-                    <li>
-                        <a class="J_menuItem" href="graph_echarts.html">位置</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="line dk"></li>
-            <li>
-                <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">文章</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a class="J_menuItem" href="form_basic.html"><i class="fa fa-dashboard"></i>基本表单</a>
-                    </li>
-                    <li><a class="J_menuItem" href="form_validate.html">表单验证</a>
-                    </li>
-                    <li><a class="J_menuItem" href="form_advanced.html">高级插件</a>
-                    </li>
-                    <li><a class="J_menuItem" href="form_wizard.html">表单向导</a>
-                    </li>
-                    <li>
-                        <a href="#">文件上传 <span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a class="J_menuItem" href="form_webuploader.html">百度WebUploader</a>
-                            </li>
-                            <li><a class="J_menuItem" href="form_file_upload.html">DropzoneJS</a>
-                            </li>
+                @else
+                    {{--<li class="active treeview"> 当前菜单加 Active--}}
+                    <li class="{{$menu['active']}}  treeview">
+                        <a href="#" class="hvr-wobble-skew">
+                            <i class="fa {{$menu['icon']}}"></i>
+                            <span>{{$menu['pname']}}</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+
+                        <ul class="treeview-menu">
+                            @if(!empty($leftMenu[$menu['id']]))
+                                @foreach($leftMenu[$menu['id']] as $subMenu)
+                                    <li class="{{$subMenu['active']}}"><a href="{{URL::action($subMenu['purl'])}}"><i class="fa fa-telegram"></i> {{$subMenu['pname']}}</a></li>
+                                @endforeach
+                            @endif
                         </ul>
                     </li>
-                    <li>
-                        <a href="#">编辑器 <span class="fa arrow"></span></a>
-                        <ul class="nav nav-third-level">
-                            <li><a class="J_menuItem" href="form_editors.html">富文本编辑器</a>
-                            </li>
-                            <li><a class="J_menuItem" href="form_simditor.html">simditor</a>
-                            </li>
-                            <li><a class="J_menuItem" href="form_markdown.html">MarkDown编辑器</a>
-                            </li>
-                            <li><a class="J_menuItem" href="code_editor.html">代码编辑器</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="J_menuItem" href="layerdate.html">日期选择器layerDate</a>
-                    </li>
-                </ul>
-            </li>
+                @endif
+            @endforeach
         </ul>
     </div>
 </nav>

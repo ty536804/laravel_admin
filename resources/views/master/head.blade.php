@@ -15,69 +15,27 @@ $uid = $user->getId();
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-envelope"></i>留言<span class="label label-warning">16</span>
-                </a>
-                <ul class="dropdown-menu dropdown-messages">
-                    <li class="m-t-xs">
-                        <div class="dropdown-messages-box">
-                            <a href="profile.html" class="pull-left">
-                                <img alt="image" class="img-circle" src="img/a7.jpg">
-                            </a>
-                            <div class="media-body">
-                                <small class="pull-right">46小时前</small>
-                                <strong>小四</strong> 是不是只有我死了,你们才不骂爵迹
-                                <br>
-                                <small class="text-muted">3天前 2014.11.8</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="dropdown-messages-box">
-                            <a href="profile.html" class="pull-left">
-                                <img alt="image" class="img-circle" src="img/a4.jpg">
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right text-navy">25小时前</small>
-                                <strong>二愣子</strong> 呵呵
-                                <br>
-                                <small class="text-muted">昨天</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="text-center link-block">
-                            <a class="J_menuItem" href="mailbox.html">
-                                <i class="fa fa-envelope"></i> <strong> 查看所有消息</strong>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                    <i class="fa fa-gears"></i>用户信息<span class="label label-primary"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-alerts">
                     <li>
-                        <a href="#">
+                        <a href="{{\Illuminate\Support\Facades\URL::action("Admin\AdminController@logout")}}">
                             <div>
-                                <i class="fa fa-envelope fa-fw"></i>退出
+                                <i class="fa fa-sign-out fa-fw"></i>退出
                             </div>
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
                         <a href="#" data-toggle="modal" data-target="#myModal"><div>
-                                <i class="fa fa-qq fa-fw"></i> 修改信息
+                                <i class="fa fa-edit fa-fw"></i> 修改信息
                             </div>
                         </a>
                     </li>
                     <li class="divider"></li>
                     <li>
                         <a href="#" data-toggle="modal" data-target="#changePwd"><div>
-                                <i class="fa fa-qq fa-fw"></i> 修改密码
+                                <i class="fa fa-key fa-fw"></i> 修改密码
                             </div>
                         </a>
                     </li>
@@ -113,7 +71,7 @@ $uid = $user->getId();
                     <div class="form-group">
                         <label class="col-sm-3 control-label">电话：</label>
                         <div class="col-sm-8">
-                            <input id="tel" type="text" class="form-control" name="tel" value="{{substr($userinfo->tel,0,3)."*****".substr($userinfo->tel,8,11)}}">
+                            <input id="tel" type="text" class="form-control" name="tel" value="{{$userinfo->tel}}">
                         </div>
                     </div>
                 </form>
@@ -152,7 +110,7 @@ $uid = $user->getId();
                     <div class="form-group">
                         <label class="col-sm-3 control-label">新密码：</label>
                         <div class="col-sm-8">
-                            <input id="newpwd" type="password" class="form-control" name="newpwd" value="**********">
+                            <input id="newpwd" type="password" class="form-control" name="newpwd" value="">
                         </div>
                     </div>
                 </form>

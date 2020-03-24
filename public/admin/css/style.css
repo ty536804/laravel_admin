@@ -50,7 +50,7 @@ a:focus {
 }
 
 .nav > li > a {
-    color: #869fb1;
+    color: #b8c7ce;
     font-weight: 600;
     padding: 14px 20px 14px 25px;
 }
@@ -212,7 +212,7 @@ body.body-small .navbar-top-links li:last-child {
 
 .nav > li.active {
     border-left: 4px solid #19a9d5;
-    background: #131e26;
+    background: #242d32;
 }
 
 .nav.nav-second-level > li.active {
@@ -300,7 +300,9 @@ body.body-small .navbar-top-links li:last-child {
 .nav-third-level li a {
     padding-left: 62px;
 }
-
+/*.nav-second-level li a:hover{*/
+/*    background: #2c3b41;*/
+/*}*/
 .nav-second-level li:last-child {
     margin-bottom: 10px;
 }
@@ -7590,7 +7592,7 @@ body.skin-3 {
 }
 
 .navbar-static-side {
-    background: #1c2b36;
+    background: #242d32;
 }
 
 .nav-close {
