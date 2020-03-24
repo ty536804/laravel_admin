@@ -16,16 +16,15 @@ class PowerController extends Controller
 {
     //
     public $adminUser;
-    function __construct(AdminUser $user)
-    {
+    function __construct(AdminUser $user) {
         $this->adminUser =  $user;
     }
     
-    public function view(Request $request){
+    public function view(Request $request) {
         $id=$request->get('id',0);
-        if($id!=0){
+        if ($id!=0) {
             $power = SysAdminPower::find($id);
-        }else{
+        } else {
             $power = new SysAdminPower();
             if ($request->pid > 0){
                 $power->parent_id = $request->pid;
@@ -37,7 +36,7 @@ class PowerController extends Controller
         $data['info']=$power;
         return view("admin.power_view",$data);
     }
-    public function updateView(Request $request){
+    public function updateView(Request $request) {
         $id=$request->get('id',0);
         $power = SysAdminPower::find($id);
         $data['pid']=$power->parent_id;
@@ -46,7 +45,7 @@ class PowerController extends Controller
         return view("admin.power_update_view",$data);
     }
     
-    public function manager(Request $request){
+    public function manager(Request $request) {
         $data['list']=SysAdminPower::where("parent_id",0)
             ->with('allchild')
             ->get();
@@ -56,7 +55,7 @@ class PowerController extends Controller
         return view("admin.power_manager",$data);
     }
     
-    public function list(Request $request){
+    public function list(Request $request) {
         $id=$request->get('id',0);
         if($id!=0){
             $power = SysAdminPower::find($id);
@@ -67,7 +66,8 @@ class PowerController extends Controller
         $data['info']=$power;
         return view("admin.power_list",$data);
     }
-    public function getListData(){
+    
+    public function getListData() {
         $list  =  SysAdminPower::where('id','>',0);
         $datatable = DataTables::eloquent($list);
         return $datatable->make(true);
@@ -75,11 +75,11 @@ class PowerController extends Controller
     
     public function save(AdminPowerRequest $request){
         $result =new Result();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             try {
-                if($request->id>0){
+                if ($request->id>0) {
                     $power  = SysAdminPower::find($request->id);
-                }else{
+                } else {
                     $power  = new SysAdminPower();
                 }
                 $power->fill(Input::all());
@@ -89,14 +89,15 @@ class PowerController extends Controller
             } catch (\Exception $e) {
                 $result->msg = "操作失败";
             }
-        }else{
+        } else {
             $result->msg  = "Invalid Request";
         }
         return response()->json($result);
     }
+    
     public function delete(Request $request){
         $result =new Result();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             try {
                 if($request->id>0){
                     $parent_id = SysAdminPower::select('parent_id')->where('parent_id',$request->id)->get()->toArray();
@@ -114,7 +115,7 @@ class PowerController extends Controller
             } catch (\Exception $e) {
                 $result->msg = "操作失败";
             }
-        }else{
+        } else {
             $result->msg  = "Invalid Request";
         }
         return response()->json($result);

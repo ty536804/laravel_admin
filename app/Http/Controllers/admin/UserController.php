@@ -5,9 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminUserRequest;
 use App\Models\Admin\SysAdminDepartment;
 use App\Models\Admin\SysAdminPosition;
-use App\Models\Base\BaseSysAdminPosition;
-use App\Models\Base\BaseSysAdminUser;
-use App\Models\Base\BaseSysAreacode;
+use App\Models\Admin\SysAdminUser;
+use App\Models\Admin\SysAreacode;
 use App\Services\AdminUser;
 use App\Services\UserServices;
 use App\Tools\Constant;
@@ -62,7 +61,7 @@ class UserController extends Controller
     }
     
     public function list(Request $request){
-        $city=BaseSysAreacode::where('level',2)->select('aid','aname')->get()->toArray();
+        $city=SysAreacode::where('a_level',2)->select('aid','aname')->get()->toArray();
         $city[] =['aid'=>10000,'aname'=>"全国"];
         $data['city'] =$city;
         $city_list =[];
@@ -70,10 +69,10 @@ class UserController extends Controller
             $city_list[$v['aname']] =$v['aid'];
         }
 //dd(array_flip($city_list));
-//dd($city=BaseSysAreacode::where('level',2)->pluck('aname','aid')->toArray());
+//dd($city=SysAreacode::where('level',2)->pluck('aname','aid')->toArray());
         $data['city_names']= json_encode(array_flip($city_list),JSON_UNESCAPED_UNICODE);
 //        $data['city_names']= json_encode(array_flip($city_list),JSON_UNESCAPED_UNICODE);
-        $data['position_names']= json_encode(BaseSysAdminPosition::where('status',1)->pluck('position_name','id')->toArray());
+        $data['position_names']= json_encode(SysAdminPosition::where('status',1)->pluck('position_name','id')->toArray());
         $data['dp_name'] =$dp_name= SysAdminDepartment::select('id','dp_name')->where([['status',1],['parent_id',0]])
             ->with(['children'=>function($query){
                 $query->select('id','dp_name','parent_id')->where('status',1);
@@ -81,8 +80,9 @@ class UserController extends Controller
         $data['pt_name'] =SysAdminPosition::all('id','position_name');
         return view('admin.user_list',$data);
     }
+    
     public function getListData(){
-        $list = BaseSysAdminUser::where('sys_admin_user.id','>',0)->select('sys_admin_user.id','nick_name','email','tel','login_name',
+        $list = SysAdminUser::where('sys_admin_user.id','>',0)->select('sys_admin_user.id','nick_name','email','tel','login_name',
             'sys_admin_user.city_id','sys_admin_user.department_id','sys_admin_user.position_id',
             'sys_admin_user.status','sys_admin_position.position_name','sys_admin_department.dp_name','sys_areacode.aname as city_name')
             ->leftjoin('sys_admin_department','sys_admin_department.id','=','sys_admin_user.department_id')
@@ -91,15 +91,16 @@ class UserController extends Controller
         $datatable =DataTables::eloquent($list);
         return $datatable->make(true);
     }
+    
     public function save(AdminUserRequest $request){
         $result =new Result();
         if($request->ajax()) {
             try {
                 if($request->id>0){
-                    $admin_user  = BaseSysAdminUser::find($request->id);
-                    $admin = BaseSysAdminUser::find($request->id);
+                    $admin_user  = SysAdminUser::find($request->id);
+                    $admin = SysAdminUser::find($request->id);
                 }else{
-                    $admin_user  = new BaseSysAdminUser();
+                    $admin_user  = new SysAdminUser();
                     $admin="";
                 }
                 if (in_array(10000,explode(',',$request->city_id))){
@@ -127,12 +128,14 @@ class UserController extends Controller
         }
         return response()->json($result);
     }
+    
+    
     public function delete(Request $request){
         $result =new Result();
         if($request->ajax()) {
             try {
                 if($request->id>0){
-                    BaseSysAdminUser::find($request->id)->update(['status'=>$request->status]);
+                    SysAdminUser::find($request->id)->update(['status'=>$request->status]);
                 }
                 $result->msg = "操作成功";
                 $result->code =  Constant::OK;
@@ -144,23 +147,18 @@ class UserController extends Controller
         }
         return response()->json($result);
     }
-    /**
-     * 用户资料
-     */
-    public function set(){
-        return view('admin.set');
-    }
+  
+    
     /**
      * 修改资料
      */
-    public function set_save(Request $request){
+    public function set_save(Request $request) {
         $result =new Result();
         if($request->ajax()) {
             try {
-                
-                $power  = BaseSysAdminUser::find($request->id);
+                $power  = SysAdminUser::find($request->id);
                 if ( $power->pwd == md5($request->pwd)){
-                    BaseSysAdminUser::find($request->id)->update(['pwd'=>md5($request->newpwd)]);
+                    SysAdminUser::find($request->id)->update(['pwd'=>md5($request->newpwd)]);
                     $result->msg = "操作成功";
                     $result->code =  Constant::OK;
                 }else{
@@ -179,11 +177,10 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @description 添加级联效果 通过部门编号获得 职位信息  这个地方需要重新写
-     * @auther YaoYao
      */
     public function linkage(Request $request){
         $department_id = $request->department_id ? $request->department_id : 1;
-        $position= BaseSysAdminPosition::select('id','position_name')->where('status',1)->where('department_id',$department_id)->get();
+        $position= SysAdminPosition::select('id','position_name')->where('status',1)->where('department_id',$department_id)->get();
         return response()->json($position);
     }
 }

@@ -37,25 +37,26 @@ class DepartmentController extends Controller
         $power = SysAdminPower::where('parent_id',0)->with('allchild')->get();
         return view('admin.department_list',['department'=>$department,'power'=>$power,'all'=>$all,'top_department'=>$top_department]);
     }
-    public function view(Request $request){
+    
+    public function view(Request $request) {
         $id=$request->get('id',0);
         
-        if (empty($request->level)){
+        if (empty($request->level)) {
             $data['level'] = 0;
-        }else{
+        } else {
             $data['level'] =$request->level;
         }
-        if (empty($request->parent_id)){
+        if (empty($request->parent_id)) {
             $data['parent_id'] = 0;
-        }else{
+        } else {
             $data['parent_id'] =$request->parent_id;
         }
-        if($id!=0){
+        if ($id!=0) {
             $department = SysAdminDepartment::find($id);
             $department->powerid = explode('|',$department->powerid);
-        }else{
+        } else {
             $department = new SysAdminDepartment();
-            if($request->pid>0){
+            if ($request->pid>0) {
                 $data['dp_name'] = SysAdminDepartment::all('id','dp_name');
                 $department->pid = $request->pid;
             }
@@ -75,9 +76,9 @@ class DepartmentController extends Controller
         return view("admin.department_view",$data);
     }
     
-    public function update(Request $request){
+    public function update(Request $request) {
         $result =new Result();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             try {
                 $id = Input::get('id');
                 $department = new SysAdminDepartment();
@@ -88,14 +89,14 @@ class DepartmentController extends Controller
                         return response()->json($result);
                     }
                 }
-                if(!empty($id)){
-                    if (!empty($request->dp_name)){
+                if (!empty($id)) {
+                    if (!empty($request->dp_name)) {
                         $po_name_arr = $department->where('id','!=',$id)->pluck('dp_name')->toArray();
                         if (in_array($request->dp_name,$po_name_arr)){
                             $result->msg="部门名称不能重复";
                             return response()->json($result);
                         }
-                    }else{
+                    } else {
                         if (empty($request->powerid)) {
                             $result->code = Constant::ERROR;
                             $result->msg = "请正确操作";
@@ -103,14 +104,14 @@ class DepartmentController extends Controller
                         }
                     }
                     $dept  = SysAdminDepartment::find($request->id);
-                    if(!empty($dept)){
+                    if (!empty($dept)) {
                         $dept->fill($request->all());
                         $dept->save();
                         $result->code=Constant::OK;
                         $result->msg="操作成功";
                     }
-                }else{
-                    if (!empty($request->dp_name)){
+                } else {
+                    if (!empty($request->dp_name)) {
                         $po_name_arr = $department->pluck('dp_name')->toArray();
                         if (in_array($request->dp_name,$po_name_arr)){
                             $result->msg="部门名称不能重复";
@@ -131,16 +132,16 @@ class DepartmentController extends Controller
             } catch (\Exception $e) {
                 $result->msg = "操作失败";
             }
-        }else{
+        } else {
             $result->msg  = "Invalid Request";
         }
         return response()->json($result);
     }
     
-    public function save(AdminDepartmentRequest $request){
+    public function save(AdminDepartmentRequest $request) {
         Log::error("====================".json_encode(Input::all()));
         $result =new Result();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             try {
                 if($request->id>0){
                     $power  = SysAdminDepartment::find($request->id);
@@ -153,12 +154,12 @@ class DepartmentController extends Controller
                 $power->save();
                 Log::error("=========power===========".json_encode($power));
                 Log::error("=========level===========".json_encode($request->level));
-                if($request->level == 0){
+                if ($request->level == 0){
                     $power->root_id = $power->id;
                     $power->path = "|".$power->id."|";
                     $power->level = 1;
-                }else{
-                    if (empty($request->parent_id)){
+                } else {
+                    if (empty($request->parent_id)) {
                         $result->msg = "请从左侧选择父级";
                         $result->code =  Constant::ERROR;
                         return response()->json($result);
@@ -176,7 +177,7 @@ class DepartmentController extends Controller
             } catch (\Exception $e) {
                 $result->msg = "操作失败";
             }
-        }else{
+        } else {
             $result->msg  = "Invalid Request";
         }
         return response()->json($result);
@@ -188,11 +189,11 @@ class DepartmentController extends Controller
      * @description
      * @auther al
      */
-    public function delete(Request $request){
+    public function delete(Request $request) {
         $result =new Result();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             try {
-                if($request->id>0){
+                if ($request->id>0) {
                     SysAdminDepartment::find($request->id)->update(['status'=> 0]);
                 }
                 $result->msg = "操作成功";
@@ -200,7 +201,7 @@ class DepartmentController extends Controller
             } catch (\Exception $e) {
                 $result->msg = "操作失败";
             }
-        }else{
+        } else {
             $result->msg  = "Invalid Request";
         }
         return response()->json($result);

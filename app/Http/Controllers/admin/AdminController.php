@@ -46,19 +46,19 @@ class AdminController extends Controller
      */
     public function login(Request $request) {
         $result =new Result();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             try {
                 $this->adminUser->forget();
                 $login_name = $request->get("login_name");
                 $user =  SysAdminUser::where('login_name',$login_name)->where('status',1)->first();
 //                Log::info('-------$login_name------'.json_encode($login_name));
 //                Log::info('-------$user------'.json_encode(explode(',',$user->position_id)));
-                if(!empty($login_name) && !empty($user)){
-                    if($user->pwd  == md5($request->get('pwd'))){
+                if (!empty($login_name) && !empty($user)) {
+                    if ($user->pwd  == md5($request->get('pwd'))) {
                         $ip=$request->getClientIp();
                         $position = SysAdminPosition::whereIn('id',explode(',',$user->position_id))->get();
                         $position_name=$position_power ="";
-                        if (!empty($position)){
+                        if (!empty($position)) {
                             foreach ($position as $v){
                                 $position_name .=$v->position_name.',';
                                 $position_power .=$v->powerid;
@@ -82,16 +82,16 @@ class AdminController extends Controller
                         $result->msg = "登录成功！";
                         $result->data = $log_route;
                         Log::info("Login ID =".$this->adminUser->getId());
-                    }else{
+                    } else {
                         $result->msg = "密码不正确";
                     }
-                }else{
+                } else {
                     $result->msg  = "账号不存在";
                 }
             } catch (\Exception $e) {
                 $result->msg = "操作失败";
             }
-        }else{
+        } else {
             $result->msg  = "Invalid Request";
         }
         return response()->json($result);
@@ -107,12 +107,12 @@ class AdminController extends Controller
         return view("admin.home");
     }
     
-    public function getIndex(){
+    public function getIndex() {
         Session::forget("ACTIVE_MAINMENU");
         Session::forget("ACTIVE_SUBMENU");
-        if(Session::has(Constant::$SESSION_USER)){
+        if (Session::has(Constant::$SESSION_USER)) {
             return view('Admin.index');
-        }else{
+        } else{
             return view('Admin.login');
         }
     }

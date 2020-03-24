@@ -65,13 +65,15 @@ class PositionController extends Controller
         $data['power'] = SysAdminPower::where('parent_id',0)->with('allchild')->get();
         return view('admin.position_list',$data);
     }
+    
     public function getListData(){
         $list  =  BaseSysAdminPosition::select('sys_admin_position.*','sys_admin_department.dp_name')
             ->leftjoin('sys_admin_department','sys_admin_department.id','=','sys_admin_position.department_id')->where('sys_admin_position.id','>',0);
         $datatable = DataTables::eloquent($list);
-        log::error("base信息=======".json_encode($datatable));
+        Log::error("base信息=======".json_encode($datatable));
         return $datatable->make(true);
     }
+    
     public function powerName($powerid){
         $power_names ="";
         foreach ($powerid as $k=>$v){
@@ -80,6 +82,7 @@ class PositionController extends Controller
         }
         return $power_names;
     }
+    
     public function save(AdminPositionRequest $request){
         // Log::error("====input===>",json_encode(Input::all()));
         $result =new Result();
@@ -103,8 +106,6 @@ class PositionController extends Controller
         }
         return response()->json($result);
     }
-    
-    
     
     public function update(Request $request){
         $result =new Result();
@@ -193,8 +194,6 @@ class PositionController extends Controller
         }
         return response()->json($result);
     }
-    
-    
     
     public function delete(Request $request){
         $result =new Result();
