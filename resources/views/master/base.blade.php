@@ -1,36 +1,75 @@
 <!DOCTYPE html>
-<html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{config('app.name')}} | @yield('title')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <![endif]-->
-    @include("master.css")
+    @include('master.css')
     @yield('css')
+    <style type="text/css">
+        @media screen and (max-width:800px) {
+            table {
+                border: 0 !important;
+            }
+            table thead {
+                display: none;
+            }
+            table tr {
+                margin-bottom: 10px;
+                display: block;
+                border-bottom: 1px solid #c6c6c6;
+            }
+            table td {
+                display: block;
+                text-align: right;
+                min-height: 40px;
+            }
+            table td:first-child {
+                background-color: #428bca;
+                background-image: linear-gradient(to bottom, #5A95CA, #357ebd);
+                background-repeat: repeat-x;
+                border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+                color: #fff;
+                text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            }
+            table td:before {
+                content: attr(data-label);
+                float: left;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+        }
+    </style>
 </head>
-
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
-<div id="wrapper">
-    <!--左侧导航开始-->
-    @include("master.left")
-    <!--左侧导航结束-->
-    <!--右侧部分开始-->
-    <div id="page-wrapper" class="gray-bg dashbard-1">
-        @include("master.head")
-{{--        <div class="row J_mainContent" id="content-main">--}}
-{{--            <iframe id="J_iframe" width="100%" height="100%" src="index_v1.html?v=4.0" frameborder="0" data-id="index_v1.html" seamless>--}}
-
-{{--            </iframe>--}}
-{{--        </div>--}}
+<body class="hold-transition skin-blue sidebar-mini fixed">
+<div class="wrapper">
+    @include('master.header');
+    @include('master.left');
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                @yield('menuname')
+                <small>@yield('smallname')</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{{\Illuminate\Support\Facades\URL::action('Admin\AdminController@main')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
+                <li class="active">@yield('smallname')</li>
+            </ol>
+        </section>
+        <!-- Main content -->
         @yield('content')
-    </div>
-    <!--右侧部分结束-->
-</div>
-@include("master.js")
+        <!-- /.content -->
+    </div><!-- /.content-wrapper -->
+    @include('master.footer')
+    @include('master.control')
+    <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+
+@include('master.js')
 @yield('js')
 </body>
-
 </html>

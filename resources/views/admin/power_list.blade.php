@@ -4,20 +4,20 @@
 @section("smallname","权限列表")
 
 @section('css')
-    <link href="{{cdnasset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
-    <link href="{{cdnasset('plugins/datatables/extensions/Buttons/css/buttons.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{cdnasset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/datatables/extensions/Buttons/css/buttons.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
 
 @endsection
 
 @section('js')
-    <script src="{{cdnasset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
-    <script src="{{cdnasset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
-    <script src="{{cdnasset('plugins/datatables/extensions/Buttons/js/dataTables.buttons.min.js')}}" type="text/javascript"></script>
-    <script src="{{cdnasset('plugins/datatables/extensions/Buttons/js/buttons.html5.min.js')}}" type="text/javascript"></script>
-    <script src="{{cdnasset('plugins/datatables/extensions/Buttons/js/buttons.export.js')}}" type="text/javascript"></script>
-    <script src="{{cdnasset('plugins/jszip/dist/jszip.min.js')}}" type="text/javascript"></script>
-    <script src="{{cdnasset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('plugins/datatables/extensions/Buttons/js/dataTables.buttons.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('plugins/datatables/extensions/Buttons/js/buttons.html5.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('plugins/datatables/extensions/Buttons/js/buttons.export.js')}}" type="text/javascript"></script>
+    <script src="{{asset('plugins/jszip/dist/jszip.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
 
 
     <script type="text/javascript">
@@ -28,7 +28,7 @@
         function initDataTable(){
             var table ;
             table  =  $("#mytable").DataTable({
-                "oLanguage":{"sUrl":"{{cdnasset('plugins/datatables/jquery.dataTable.cn.txt')}}"},
+                "oLanguage":{"sUrl":"{{asset('plugins/datatables/jquery.dataTable.cn.txt')}}"},
                 "responsive":true,
                 "serverSide": true,
                 'stateSave':true,

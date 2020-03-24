@@ -4,15 +4,15 @@
 @section("smallname","权限操作")
 
 @section('css')
-    <link href="{{cdnasset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
-    <link href="{{cdnasset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{asset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
+    <link href="{{asset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
 
 @endsection
 
 @section('js')
     <!-- iCheck -->
-    <script src="{{cdnasset('admin/js/plugins/iCheck/icheck.min.js')}}"></script>
-    <script src="{{cdnasset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/iCheck/icheck.min.js')}}"></script>
+    <script src="{{asset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
 
     <script>
         $(document).ready(function () {
