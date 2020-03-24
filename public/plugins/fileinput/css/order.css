@@ -1,0 +1,258 @@
+* {
+    box-sizing: border-box;
+}
+.container{
+    position:relative;
+}
+.content-order{
+    margin-left:0px;
+}
+/*****预约*******/
+.page-header {
+    padding-bottom: 0;
+    margin: 0 0 10px;
+    border-bottom: 1px solid #e1e5e8;
+    height: 40px;
+    position: relative;
+}
+.page-header h4 {
+    font-size: 14px;
+}
+
+h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+.right-smenu,.right-smenu {
+    position: absolute;
+    right: 0;
+    top: 7px;
+    font-size: 14px;
+}
+span {
+    display: inline-block;
+}
+.right-smenu a, .right-smenu a {
+    padding: 0 10px;
+}
+.row{
+    width:100%;
+}
+.order-set{
+    cursor:pointer;
+}
+/***日期选择***/
+.calendar-box .calendar-head {
+    height: 60px;
+    width: 100%;
+    cursor: pointer;
+}
+.calendar-head {
+    height:90%;
+}
+.calendar-head .c {
+    height: inherit;
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+    background-color: #fbfbfb;
+}
+.em {
+    float: left;
+    width: 12.5%;
+    height:30px;
+    color: #7f7f7f;
+    height: inherit;
+    overflow: hidden;
+    text-align: center;
+}
+.cur {
+    background-color: #367FA9;
+    color: #fff;
+}
+.box {
+    height: 60px;
+    border-left: 1px solid #e4e4e4;
+    margin-top:-2px;
+    padding-top:10px;
+}
+.page-margin{
+    position:relative;
+}
+/****时间****/
+.time-yr-box{
+    margin-top: 10px;
+    width:100%;
+    display:-moz-box;
+    display:-webkit-box;
+    display:box;
+    -moz-box-orient:horizontal;
+    -webkit-box-orient:horizontal;
+    box-orient:horizontal;
+}
+.left-f{
+    width:100px;
+}
+.clear{
+    clear: both;
+}
+.right-r{
+    width:1037px;
+}
+.sbox {
+    width:1037px;
+    height: 40px;
+    background-color: #394f63;
+}
+.elli {
+    width:114px;
+}
+.ellipsis {
+    width:100px;
+}
+.name-em {
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    display: inline-block;
+}
+/********艺人列表*********/
+.yr{
+    height:60px;
+    width:100px;
+    text-align: center;
+    line-height: 60px;
+    border: 1px solid #e0e0e0;
+}
+.yr:first-child{
+    border-top:none;
+}
+.style-line{
+    width:100%;
+    display: inline-block;
+}
+.yr-box{
+    display:-moz-box;
+    display:-webkit-box;
+    display:box;
+    -moz-box-orient:horizontal;
+    -webkit-box-orient:horizontal;
+    box-orient:horizontal;
+}
+/********表格选择*********/
+.tip{
+    height:60px;
+    font-size: 12px;
+    line-height: 60px;
+    border: 1px solid #e0e0e0;
+    border-left:none;
+    border-top:none;
+    text-align: center;
+}
+.time1>.tip,.time2>.tip,.time3>.tip{
+    width:10%;
+}
+.time2-header{
+    width:2174px;
+    background-color: #394f63;
+}
+.tip-box>a{
+    color:#E55D1E;
+    cursor:pointer;
+}
+.tip-hd{
+    visibility: visible;
+    border: 1px solid #e0e0e0;
+    color: #E55D1E;
+    width:103.8px;
+    height:60px;
+    cursor:pointer;
+}
+.tip-box{
+    visibility: hidden;
+    border: 1px dashed #ff983e;
+    background-color: #fffaf5;
+    color: #E55D1E;
+    width: 100%;
+    height:57px;
+}
+.tip:hover .tip-box {
+    visibility: visible;
+}
+
+/*********会员预约时间设置*********/
+
+.modal-header{
+    border-bottom: 1px solid dodgerblue;
+}
+.open-left{
+    margin-left:100px;
+    margin-right:5px;
+}
+.switch1,.switch2{
+    width:80px;
+    border:1px solid #e0e0e0;
+}
+.radius{
+    display: inline-block;
+    width:20px;height:20px;
+    border-radius:20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #9fbdd6;
+}
+.modal-body-or{
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.modal-body-box{
+    margin-top: 15px;
+}
+.modal-body-box>div{
+    display: inline-block;
+    border: 1px solid #E3E3E3;
+    height:40px;
+    width:78px;
+    text-align: center;
+}
+.modal-header{
+    color: 	#7abff8;
+    font-weight:bold;
+}
+/*********预约详情**********/
+.cr{
+    margin:0 25px 0;
+}
+.form-line{
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+}
+label>b{
+    color:red;
+}
+.form-font{
+    color: #999;
+    font-weight: 100;
+}
+.span-right{
+    height:27px;
+    line-height: 32px;
+    color: #333;
+}
+.sex1,.sex2{
+    display: inline-block;
+    width:60px;
+    height:40px;
+    border:1px solid #e0e0e0;
+}
+.women{
+    margin-left: 10px;
+}
+
