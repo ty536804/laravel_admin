@@ -460,7 +460,7 @@ More detail and specific examples can be found in the included HTML file.
 						var labelTop = (y - label.height()/2);
 						var labelLeft = (x - label.width()/2);
 						label.css('top', labelTop);
-						label.css('left.blade.php', labelLeft);
+						label.css('left', labelLeft);
 
 						// check to make sure that the label is not outside the canvas
 						if (0-labelTop>0 || 0-labelLeft>0 || canvas.height-(labelTop+label.height())<0 || canvas.width-(labelLeft+label.width())<0)

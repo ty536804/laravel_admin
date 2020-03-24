@@ -245,7 +245,7 @@
 					case 'bottom':
 						o.orientation.y = plc[0];
 						break;
-					case 'left.blade.php':
+					case 'left':
 					case 'right':
 						o.orientation.x = plc[0];
 						break;

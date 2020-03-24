@@ -82,7 +82,7 @@
                 },
                 yaxis: {
                     autoscaleMargin: 0.02,
-                    position: "left.blade.php" // or "right"
+                    position: "left" // or "right"
                 },
                 xaxes: [],
                 yaxes: [],
@@ -109,7 +109,7 @@
                         barWidth: 1, // in units of the x axis
                         fill: true,
                         fillColor: null,
-                        align: "left.blade.php", // or "center"
+                        align: "left", // or "center"
                         horizontal: false
                     },
                     shadowSize: 3
@@ -660,7 +660,7 @@
 
                 if (s.bars.show) {
                     // make sure we got room for the bar on the dancing floor
-                    var delta = s.bars.align == "left.blade.php" ? 0 : -s.bars.barWidth/2;
+                    var delta = s.bars.align == "left" ? 0 : -s.bars.barWidth/2;
                     if (s.bars.horizontal) {
                         ymin += delta;
                         ymax += delta + s.bars.barWidth;
@@ -960,7 +960,7 @@
             else {
                 lw += padding;
 
-                if (pos == "left.blade.php") {
+                if (pos == "left") {
                     axis.box = { left: plotOffset.left + axismargin, width: lw };
                     plotOffset.left += lw + axismargin;
                 }
@@ -1573,9 +1573,9 @@
                 else {
                     y = 0;
                     if (t == "full")
-                        x = (axis.position == "left.blade.php" ? 0 : plotWidth);
+                        x = (axis.position == "left" ? 0 : plotWidth);
                     else
-                        x = box.left - plotOffset.left + (axis.position == "left.blade.php" ? box.width : 0);
+                        x = box.left - plotOffset.left + (axis.position == "left" ? box.width : 0);
                 }
 
                 // draw tick bar
@@ -1621,7 +1621,7 @@
                         y = axis.p2c(v);
                         xoff = t == "full" ? -plotWidth : t;
 
-                        if (axis.position == "left.blade.php")
+                        if (axis.position == "left")
                             xoff = -xoff;
                     }
 
@@ -1679,13 +1679,13 @@
                     }
                     else {
                         pos.top = Math.round(plotOffset.top + axis.p2c(tick.v) - axis.labelHeight/2);
-                        if (axis.position == "left.blade.php") {
+                        if (axis.position == "left") {
                             pos.right = canvasWidth - (box.left + box.width - box.padding)
                             align = "right";
                         }
                         else {
                             pos.left = box.left + box.padding;
-                            align = "left.blade.php";
+                            align = "left";
                         }
                     }
 
@@ -2149,7 +2149,7 @@
             // FIXME: figure out a way to add shadows (for instance along the right edge)
             ctx.lineWidth = series.bars.lineWidth;
             ctx.strokeStyle = series.color;
-            var barLeft = series.bars.align == "left.blade.php" ? 0 : -series.bars.barWidth/2;
+            var barLeft = series.bars.align == "left" ? 0 : -series.bars.barWidth/2;
             var fillStyleCallback = series.bars.fill ? function (bottom, top) { return getFillStyle(series.bars, series.color, bottom, top); } : null;
             plotBars(series.datapoints, barLeft, barLeft + series.bars.barWidth, 0, fillStyleCallback, series.xaxis, series.yaxis);
             ctx.restore();
@@ -2302,7 +2302,7 @@
                 }
 
                 if (s.bars.show && !item) { // no other point can be nearby
-                    var barLeft = s.bars.align == "left.blade.php" ? 0 : -s.bars.barWidth/2,
+                    var barLeft = s.bars.align == "left" ? 0 : -s.bars.barWidth/2,
                         barRight = barLeft + s.bars.barWidth;
 
                     for (j = 0; j < points.length; j += ps) {
@@ -2492,7 +2492,7 @@
             octx.lineWidth = series.bars.lineWidth;
             octx.strokeStyle = $.color.parse(series.color).scale('a', 0.5).toString();
             var fillStyle = $.color.parse(series.color).scale('a', 0.5).toString();
-            var barLeft = series.bars.align == "left.blade.php" ? 0 : -series.bars.barWidth/2;
+            var barLeft = series.bars.align == "left" ? 0 : -series.bars.barWidth/2;
             drawBar(point[0], point[1], point[2] || 0, barLeft, barLeft + series.bars.barWidth,
                     0, function () { return fillStyle; }, series.xaxis, series.yaxis, octx, series.bars.horizontal, series.bars.lineWidth);
         }
