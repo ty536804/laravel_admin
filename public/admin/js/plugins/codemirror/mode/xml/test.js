@@ -34,7 +34,7 @@
      "  [tag&bracket <][tag link] [attribute rel]=[string stylesheet] [attribute href]=[string \"/foobar\"][tag&bracket >]",
      "[tag&bracket </][tag html][tag&bracket >]");
 
-  MT("list",
+  MT("list.blade.php",
      "[tag&bracket <][tag ol][tag&bracket >]",
      "  [tag&bracket <][tag li][tag&bracket >]one",
      "  [tag&bracket <][tag li][tag&bracket >]two",

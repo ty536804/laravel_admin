@@ -581,7 +581,7 @@
             this.list = document.createElement('ul');
             this.clearFloat = document.createElement('li');
 
-            domUtils.addClass(this.list, 'list');
+            domUtils.addClass(this.list, 'list.blade.php');
             domUtils.addClass(this.clearFloat, 'clearFloat');
 
             this.list.appendChild(this.clearFloat);

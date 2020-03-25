@@ -23,14 +23,14 @@
     <script type="text/javascript">
 
 
-                $(window).on('load', function () {
+        $(window).on('load', function () {
 
-                    $('.selectpicker').selectpicker({
-                        'selectedText': 'cat'
-                    });
+            $('.selectpicker').selectpicker({
+                'selectedText': 'cat'
+            });
 
-                    // $('.selectpicker').selectpicker('hide');
-                });
+            // $('.selectpicker').selectpicker('hide');
+        });
 
 
 
@@ -198,132 +198,132 @@
 
 
 @section('content')
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">
-                            <div class="box-header">
-                                <h3 class="box-title"></h3>
-                                <button type="button" id="btn" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
-                                    添加用户
-                                </button>
-                                <input type="hidden" id="city_names" value="{{$city_names}}">
-                            </div>  <!-- /.box-header -->
-                            <div class="box-body">
-                                <table id="mytable" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                    <th>用户ID</th>
-                                    <th>昵称</th>
-                                    <th>邮箱</th>
-                                    <th>手机号</th>
-                                    <th>部门</th>
-                                    <th>职位</th>
-                                    <th>城市</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div><!-- /.box-body -->
-                        </div><!-- /.box -->
-                    </div><!-- /.col -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
+                        <button type="button" id="btn" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                            添加用户
+                        </button>
+                        <input type="hidden" id="city_names" value="{{$city_names}}">
+                    </div>  <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="mytable" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>用户ID</th>
+                                <th>昵称</th>
+                                <th>邮箱</th>
+                                <th>手机号</th>
+                                <th>部门</th>
+                                <th>职位</th>
+                                <th>城市</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div>
+    </section>
+
+    <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">用户管理</h4>
                 </div>
-            </section>
+                <div class="modal-body">
+                    <form class="form-horizontal m-t" id="addform">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <input id="id" name="id" type="hidden" value="{{$info->id}}">
+                            <label class="col-sm-3 control-label">用户名称：</label>
+                            <div class="col-sm-8">
+                                <input id="nick_name" name="nick_name"  type="text" class="form-control" value="{{$info->nick_name}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">用户登陆账号：</label>
+                            <div class="col-sm-8">
+                                <input id="login_name" name="login_name" type="text" class="form-control" value="{{$info->login_name}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">邮箱：</label>
+                            <div class="col-sm-8">
+                                <input id="email" name="email" type="text" class="form-control" value="{{$info->email}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">密码：</label>
+                            <div class="col-sm-8">
+                                <input id="pwd" name="pwd" type="text" class="form-control" value="{{$info->pwd}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">电话：</label>
+                            <div class="col-sm-8">
+                                <input id="tel" name="tel" type="text" class="form-control" value="{{$info->tel}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">部门：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="department_id" id="department_id">
+                                    <option value="">--请选择--</option>
+                                    @foreach($dp_name as $k=>$v)
+                                        <option value="{{$v->id}}" @if($info->id == $v->id ) selected="selected" @endif> {{$v->dp_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">职位：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="position_id" id="position_id">
+                                    @foreach($pt_name as $k=>$v)
+                                        <option value="{{$v->id}}" @if($info->id == $v->id ) selected="selected" @endif>{{$v->position_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">城市：</label>
+                            <div class="col-sm-8">
+                                <select class="selectpicker selectcity"  multiple data-live-search="true">
+                                    @foreach($city as $k=>$v)
+                                        <option value="{{$v['aid']}}">{{$v['aname']}}</option>
+                                    @endforeach
+                                </select>
+                                <input type="hidden" id="city_id" name="city_id">
+                            </div>
+                        </div>
+                        <label class="col-sm-3 control-label"></label><font color="#d2691e">城市填写要查询数据的城市(查询所有城市选择全国即可)</font>
 
-            <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content animated bounceInRight">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title">用户管理</h4>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">状态：</label>
+                            <div class="radio i-checks">
+                                <label>
+                                    <input type="radio" value="1" checked="" name="status" id="status"> <i></i> 正常</label>
+                                <label>
+                                    <input type="radio" value="0" name="status" id="status"><i></i> 禁用</label>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal m-t" id="addform">
-                                {{csrf_field()}}
-                                <div class="form-group">
-                                    <input id="id" name="id" type="hidden" value="{{$info->id}}">
-                                    <label class="col-sm-3 control-label">用户名称：</label>
-                                    <div class="col-sm-8">
-                                        <input id="nick_name" name="nick_name"  type="text" class="form-control" value="{{$info->nick_name}}">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">用户登陆账号：</label>
-                                    <div class="col-sm-8">
-                                        <input id="login_name" name="login_name" type="text" class="form-control" value="{{$info->login_name}}">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">邮箱：</label>
-                                    <div class="col-sm-8">
-                                        <input id="email" name="email" type="text" class="form-control" value="{{$info->email}}">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">密码：</label>
-                                    <div class="col-sm-8">
-                                        <input id="pwd" name="pwd" type="text" class="form-control" value="{{$info->pwd}}">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">电话：</label>
-                                    <div class="col-sm-8">
-                                        <input id="tel" name="tel" type="text" class="form-control" value="{{$info->tel}}">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">部门：</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" name="department_id" id="department_id">
-                                            <option value="">--请选择--</option>
-                                            @foreach($dp_name as $k=>$v)
-                                                <option value="{{$v->id}}" @if($info->id == $v->id ) selected="selected" @endif> {{$v->dp_name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">职位：</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" name="position_id" id="position_id">
-                                            @foreach($pt_name as $k=>$v)
-                                                <option value="{{$v->id}}" @if($info->id == $v->id ) selected="selected" @endif>{{$v->position_name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">城市：</label>
-                                    <div class="col-sm-8">
-                                        <select class="selectpicker selectcity"  multiple data-live-search="true">
-                                            @foreach($city as $k=>$v)
-                                                <option value="{{$v['aid']}}">{{$v['aname']}}</option>
-                                            @endforeach
-                                        </select>
-                                        <input type="hidden" id="city_id" name="city_id">
-                                    </div>
-                                </div>
-                                <label class="col-sm-3 control-label"></label><font color="#d2691e">城市填写要查询数据的城市(查询所有城市选择全国即可)</font>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">状态：</label>
-                                    <div class="radio i-checks">
-                                        <label>
-                                            <input type="radio" value="1" checked="" name="status" id="status"> <i></i> 正常</label>
-                                        <label>
-                                            <input type="radio" value="0" name="status" id="status"><i></i> 禁用</label>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" type="button" id="addpower" name="addpower">提交</button>
-                            <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                        </div>
-                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" id="addpower" name="addpower">提交</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
                 </div>
             </div>
+        </div>
+    </div>
 
 
 

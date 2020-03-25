@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Base\BaseSysMedia;
+use App\Tools\Result;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
@@ -157,10 +158,9 @@ class FileInputUploadController extends Controller
                     $media->m_metadata =json_encode($fileinfo);
                     $media->save();
                     
-                    
                     //初始化处理
                     if(in_array($extname,$this->IMG_TYPE)){
-                        $initPreview=["<img src='".config('app.url')."/storage/uploadfile/".$media->m_url."' style=\"width:auto;height:160px;\" class=\"file-preview-image\" alt=".$media->m_name." title=".$media->m_name.">"];
+                        $initPreview=["<img src='".asset('storage/uploadfile/').$media->m_url."' style=\"width:auto;height:160px;\" class=\"file-preview-image\" alt=".$media->m_name." title=".$media->m_name.">"];
                     }else{
                         $initPreview=["<div class='file-preview-other'><span class='file-other-icon'><i class='glyphicon glyphicon-file'></i></span></div>"];
                     }

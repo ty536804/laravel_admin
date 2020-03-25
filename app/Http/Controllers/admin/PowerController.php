@@ -73,20 +73,28 @@ class PowerController extends Controller
         return $datatable->make(true);
     }
     
-    public function save(AdminPowerRequest $request){
+    /**
+     * @description 添加权限
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @auther caoxiaobin
+     * date: 2020-03-25
+     */
+    public function save(Request $request){
         $result =new Result();
         if ($request->ajax()) {
             try {
-                if ($request->id>0) {
+                if ($request->post('id')>0) {
                     $power  = SysAdminPower::find($request->id);
                 } else {
                     $power  = new SysAdminPower();
                 }
-                $power->fill(Input::all());
+                $power->fill($request->all());
                 $power->save();
                 $result->msg = "操作成功";
                 $result->code =  Constant::OK;
             } catch (\Exception $e) {
+                Log::info("权限添加失败",$e->getMessage());
                 $result->msg = "操作失败";
             }
         } else {
@@ -95,6 +103,13 @@ class PowerController extends Controller
         return response()->json($result);
     }
     
+    /**
+     * @description
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @auther caoxiaobin
+     * date: 2020-03-25
+     */
     public function delete(Request $request){
         $result =new Result();
         if ($request->ajax()) {

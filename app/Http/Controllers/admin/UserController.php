@@ -3,10 +3,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminUserRequest;
-use App\Models\Admin\SysAdminDepartment;
 use App\Models\Admin\SysAdminPosition;
 use App\Models\Admin\SysAdminUser;
-use App\Models\Admin\SysAreacode;
+use App\Models\Base\BaseSysAdminDepartment;
+use App\Models\Base\BaseSysAdminPosition;
+use App\Models\Base\BaseSysAdminUser;
+use App\Services\AdminMethod;
 use App\Services\AdminUser;
 use App\Services\UserServices;
 use App\Tools\Constant;
@@ -20,11 +22,14 @@ class UserController extends Controller
     private $user;
     protected $result;
     public $adminUser;
-    public function __construct(AdminUser $admin,UserServices $user)
+    private $adminMethod;
+    
+    public function __construct(AdminUser $admin,UserServices $user,AdminMethod $adminMethod)
     {
         $this->user = $user;
         $this->adminUser =  $admin;
         $this->result = new Result();
+        $this->adminMethod = $adminMethod;
     }
     
     /**
@@ -61,23 +66,17 @@ class UserController extends Controller
     }
     
     public function list(Request $request){
-        $city=SysAreacode::where('a_level',2)->select('aid','aname')->get()->toArray();
-        $city[] =['aid'=>10000,'aname'=>"全国"];
-        $data['city'] =$city;
-        $city_list =[];
-        foreach ($city as $k=>$v){
-            $city_list[$v['aname']] =$v['aid'];
+        $id=$request->get('id',0);
+        if($id!=0){
+            $user = BaseSysAdminUser::find($id);
+        }else{
+            $user = new BaseSysAdminUser();
         }
-//dd(array_flip($city_list));
-//dd($city=SysAreacode::where('level',2)->pluck('aname','aid')->toArray());
-        $data['city_names']= json_encode(array_flip($city_list),JSON_UNESCAPED_UNICODE);
-//        $data['city_names']= json_encode(array_flip($city_list),JSON_UNESCAPED_UNICODE);
-        $data['position_names']= json_encode(SysAdminPosition::where('status',1)->pluck('position_name','id')->toArray());
-        $data['dp_name'] =$dp_name= SysAdminDepartment::select('id','dp_name')->where([['status',1],['parent_id',0]])
-            ->with(['children'=>function($query){
-                $query->select('id','dp_name','parent_id')->where('status',1);
-            }])->get();
-        $data['pt_name'] =SysAdminPosition::all('id','position_name');
+        $data['city'] =$this->adminMethod->cityNameAll();
+        $data['city_names'] =$this->adminMethod->cityNameAllJson();
+        $data['info']=$user;
+        $data['dp_name']= BaseSysAdminDepartment::all('id','dp_name');
+        $data['pt_name'] =BaseSysAdminPosition::all('id','position_name');
         return view('admin.user_list',$data);
     }
     

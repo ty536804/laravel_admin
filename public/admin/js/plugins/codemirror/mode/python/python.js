@@ -26,7 +26,7 @@
                         "enumerate", "eval", "filter", "float", "format", "frozenset",
                         "getattr", "globals", "hasattr", "hash", "help", "hex", "id",
                         "input", "int", "isinstance", "issubclass", "iter", "len",
-                        "list", "locals", "map", "max", "memoryview", "min", "next",
+                        "list.blade.php", "locals", "map", "max", "memoryview", "min", "next",
                         "object", "oct", "open", "ord", "pow", "property", "range",
                         "repr", "reversed", "round", "set", "setattr", "slice",
                         "sorted", "staticmethod", "str", "sum", "super", "tuple",

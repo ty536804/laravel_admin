@@ -370,7 +370,7 @@
     },
 
     list: function(stream, state) {
-      var match = stream.match(RE("list"));
+      var match = stream.match(RE("list.blade.php"));
       state.listDepth = match[0].length;
       var listMod = (state.listDepth - 1) % 3;
       if (!listMod)

@@ -109,7 +109,7 @@
     'la_trisol', 'label_date', 'label_region', 'ladfit', 'laguerre',
     'lambda', 'lambdap', 'lambertw', 'laplacian', 'least_squares_filter',
     'leefilt', 'legend', 'legendre', 'linbcg', 'lindgen',
-    'linfit', 'linkimage', 'list', 'll_arc_distance', 'lmfit',
+    'linfit', 'linkimage', 'list.blade.php', 'll_arc_distance', 'lmfit',
     'lmgr', 'lngamma', 'lnp_test', 'loadct', 'locale_get',
     'logical_and', 'logical_or', 'logical_true', 'lon64arr', 'lonarr',
     'long', 'long64', 'lsode', 'lu_complex', 'ludc',

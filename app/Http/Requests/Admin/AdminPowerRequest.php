@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Input;
 
 class AdminPowerRequest extends FormRequest
 {
@@ -25,7 +24,7 @@ class AdminPowerRequest extends FormRequest
     public function rules()
     {
         
-        $id=Input::get('id');
+        $id=input ::get('id');
         $addRules=[
             'pname' =>'required',
             'icon' =>'required',

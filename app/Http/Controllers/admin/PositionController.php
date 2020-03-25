@@ -11,7 +11,6 @@ use App\Services\AdminUser;
 use App\Tools\Constant;
 use App\Tools\Result;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -86,7 +85,7 @@ class PositionController extends Controller
                 }else{
                     $power  = new BaseSysAdminPosition();
                 }
-                $power->fill(Input::all());
+                $power->fill($request->all());
                 $power->powerid = '|';
                 $power->save();
                 $result->msg = "操作成功";
@@ -100,11 +99,18 @@ class PositionController extends Controller
         return response()->json($result);
     }
     
+    /**
+     * @description 添加职位
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @auther caoxiaobin
+     * date: 2020-03-25
+     */
     public function update(Request $request){
         $result =new Result();
         if($request->ajax()) {
             try {
-                $id = Input::get('id');
+                $id = $request->get('id');
                 if (!empty($request->powerid) && empty($id)){
                     if (empty($request->position_name)){
                         $result->code=Constant::ERROR;

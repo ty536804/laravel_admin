@@ -14899,24 +14899,24 @@ ViewRegistry_1.defineView('agendaWeek', {
 Object.defineProperty(exports, "__esModule", { value: true });
 var ViewRegistry_1 = __webpack_require__(21);
 var ListView_1 = __webpack_require__(230);
-ViewRegistry_1.defineView('list', {
+ViewRegistry_1.defineView('list.blade.php', {
     'class': ListView_1.default,
-    buttonTextKey: 'list',
+    buttonTextKey: 'list.blade.php',
     defaults: {
-        buttonText: 'list',
+        buttonText: 'list.blade.php',
         listDayFormat: 'LL',
         noEventsMessage: 'No events to display'
     }
 });
 ViewRegistry_1.defineView('listDay', {
-    type: 'list',
+    type: 'list.blade.php',
     duration: { days: 1 },
     defaults: {
         listDayFormat: 'dddd' // day-of-week is all we need. full date is probably in header
     }
 });
 ViewRegistry_1.defineView('listWeek', {
-    type: 'list',
+    type: 'list.blade.php',
     duration: { weeks: 1 },
     defaults: {
         listDayFormat: 'dddd',
@@ -14924,14 +14924,14 @@ ViewRegistry_1.defineView('listWeek', {
     }
 });
 ViewRegistry_1.defineView('listMonth', {
-    type: 'list',
+    type: 'list.blade.php',
     duration: { month: 1 },
     defaults: {
         listDayAltFormat: 'dddd' // day-of-week is nice-to-have
     }
 });
 ViewRegistry_1.defineView('listYear', {
-    type: 'list',
+    type: 'list.blade.php',
     duration: { year: 1 },
     defaults: {
         listDayAltFormat: 'dddd' // day-of-week is nice-to-have

@@ -64,7 +64,7 @@ CodeMirror.defineMode("erlang", function(cmCfg) {
     "is_atom","is_binary","is_bitstring","is_boolean","is_float",
     "is_function","is_integer","is_list","is_number","is_pid",
     "is_port","is_record","is_reference","is_tuple",
-    "atom","binary","bitstring","boolean","function","integer","list",
+    "atom","binary","bitstring","boolean","function","integer","list.blade.php",
     "number","pid","port","record","reference","tuple"];
 
   var bifWords = [

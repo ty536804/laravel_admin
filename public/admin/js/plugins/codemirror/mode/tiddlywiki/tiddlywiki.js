@@ -37,7 +37,7 @@ CodeMirror.defineMode("tiddlywiki", function () {
       return { type: type, style: "macro"};
     }
     return {
-      "allTags": kw('allTags'), "closeAll": kw('closeAll'), "list": kw('list'),
+      "allTags": kw('allTags'), "closeAll": kw('closeAll'), "list": kw('list.blade.php'),
       "newJournal": kw('newJournal'), "newTiddler": kw('newTiddler'),
       "permaview": kw('permaview'), "saveChanges": kw('saveChanges'),
       "search": kw('search'), "slider": kw('slider'),   "tabs": kw('tabs'),
@@ -116,19 +116,19 @@ CodeMirror.defineMode("tiddlywiki", function () {
       }
       if (ch == "*") { // tw list
         stream.eatWhile('*');
-        return ret("list", "comment");
+        return ret("list.blade.php", "comment");
       }
       if (ch == "#") { // tw numbered list
         stream.eatWhile('#');
-        return ret("list", "comment");
+        return ret("list.blade.php", "comment");
       }
       if (ch == ";") { // definition list, term
         stream.eatWhile(';');
-        return ret("list", "comment");
+        return ret("list.blade.php", "comment");
       }
       if (ch == ":") { // definition list, description
         stream.eatWhile(':');
-        return ret("list", "comment");
+        return ret("list.blade.php", "comment");
       }
       if (ch == ">") { // single line quote
         stream.eatWhile(">");

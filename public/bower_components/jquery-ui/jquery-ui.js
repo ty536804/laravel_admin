@@ -12257,7 +12257,7 @@ var selectmenu = $.widget( "ui.selectmenu", {
 			id: this.ids.button,
 			role: "combobox",
 			"aria-expanded": "false",
-			"aria-autocomplete": "list",
+			"aria-autocomplete": "list.blade.php",
 			"aria-owns": this.ids.menu,
 			"aria-haspopup": "true"
 		})
