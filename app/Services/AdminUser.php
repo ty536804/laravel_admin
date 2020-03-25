@@ -148,12 +148,14 @@ class AdminUser
         $allroutes = app()->routes->getRoutes();
         $routes = collect();
         foreach ($allroutes as $k => $value) {
-            $route = collect([
-                'uri'    => $value->uri,
-                'path'   => $value->methods[0],
-                'action' => Str::replaceFirst("App\\Http\\Controllers\\", "", $value->action['controller']),
-            ]);
-            $routes->push($route);
+            if (isset($value->action['controller'])) {
+                $route = collect([
+                    'uri'    => $value->uri,
+                    'path'   => $value->methods[0],
+                    'action' => Str::replaceFirst("App\\Http\\Controllers\\", "", $value->action['controller']),
+                ]);
+                $routes->push($route);
+            }
         }
         return $routes->groupBy('action');
     }

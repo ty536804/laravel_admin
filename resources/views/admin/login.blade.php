@@ -6,12 +6,12 @@
     <title>后台登录 - {{ config('app.name', 'Laravel') }}</title>
     <meta name="keywords" content="后台登录">
     <meta name="description" content="后台登录">
-    <link href="{{asset('admin/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/css/animate.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/css/style.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/css/login.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{asset('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/admin/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/admin/css/animate.css')}}" rel="stylesheet">
+    <link href="{{asset('/admin/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('/admin/css/login.css')}}" rel="stylesheet">
+    <link href="{{asset('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
     <script>
         if(window.top!==window.self){window.top.location=window.location};
     </script>
@@ -34,6 +34,8 @@
                 <input type="password" class="form-control pword m-b" name="pwd" required placeholder="密码" />
                 <p></p>
                 <button class="btn btn-success btn-block" id="loginButton" name="loginButton">登录</button>
+
+                <a href="">注册</a>
             </form>
         </div>
     </div>
@@ -41,9 +43,9 @@
         &copy; 2018 All Rights Reserved.Hello world
     </div>
 </div>
-<script src="{{asset('admin/js/jquery.min.js?v=2.1.4')}}"></script>
-<script src="{{asset('admin/js/bootstrap.min.js?v=3.3.6')}}"></script>
-<script src="{{asset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset('/admin/js/jquery.min.js?v=2.1.4')}}"></script>
+<script src="{{asset('/admin/js/bootstrap.min.js?v=3.3.6')}}"></script>
+<script src="{{asset('/admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
 
 <script type="application/javascript">
     $(function () {
@@ -55,11 +57,7 @@
                 data: $("#addform").serialize(),
                 success: function (result) {
                     if (result.code == "10000") {
-                        if (result.data == 1){
-                            window.location.href = "{{URL::action('Admin\AdminController@index')}}";
-                        } else{
-                            window.location.href = result.data;
-                        }
+                        window.location.href = "{{URL::action('Admin\AdminController@index')}}";
                     } else {
                         sweetAlert("登录失败",result.msg,'error');
                     }

@@ -13,7 +13,6 @@
 <!-- Morris.js charts -->
 <script src="{{asset('bower_components/raphael/raphael.min.js')}}"></script>
 <script src="{{asset('bower_components/morris.js/morris.min.js')}}"></script>
-<script src="{{asset('bower_components/chart.js/Chart.js')}}"></script>
 <!-- Sparkline -->
 <script src="{{asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js')}}"></script>
 <!-- jvectormap -->
@@ -34,7 +33,7 @@
 <script src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
 <!-- FastClick -->
 <script src="{{asset('bower_components/fastclick/fastclick.js')}}"></script>
-<script src="{{asset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset('/admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
 
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.js')}}"></script>
@@ -45,4 +44,66 @@
 
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <script src="{{asset('admin/js/plugins/iCheck/icheck.min.js')}}"></script>
+<script type="application/javascript">
+   $(function () {
+       //修改密码
+       $('.head_sub').on('click',function () {
+           if ($.trim($('#login_name').val())=="") {
+               sweetAlert("操作失败","用户名不能为空","error");
+           }
+           if ($.trim($('#pwd').val())=="") {
+               sweetAlert("操作失败","旧密码不能为空","error");
+           }
+           if ($.trim($('#newpwd').val())=="") {
+               sweetAlert("操作失败","新密码不能为空","error");
+           }
+           subCon("{{\Illuminate\Support\Facades\URL::action("Admin\UserController@change")}}","update_pwd","changePwd")
+       });
+
+       //修改信息
+       $('.update_info').on('click',function () {
+           if ($.trim($('#login_name').val())=="") {
+               sweetAlert("操作失败","用户名不能为空","error");
+           }
+
+           if ($.trim($('#email').val())=="") {
+               sweetAlert("操作失败","邮箱不能为空","error");
+           }
+
+           if ($.trim($('#tel').val())=="") {
+               sweetAlert("操作失败","电话不能为空","error");
+           }
+
+           subCon("{{\Illuminate\Support\Facades\URL::action("Admin\UserController@updateInfo")}}","commentForm","myModal")
+       });
+
+       //提交内容
+       function subCon(_URL,_data,_modal) {
+           $.ajax({
+               type: "POST",
+               dataType: "json",
+               url: _URL,
+               data: $("#"+_data+"").serialize(),
+               success: function (result) {
+                   if (result.code == "10000") {
+                       if (_data == "update_pwd") {
+                           window.location.href = "{{URL::action('Admin\AdminController@logout')}}";
+                       }
+                       $("#"+_modal+"").modal("hide");
+                       sweetAlert("操作成功",result.msg,'success');
+                   } else {
+                       sweetAlert("操作失败",result.msg,'error');
+                   }
+               },
+               error: function (result) {
+                   $.each(result.responseJSON, function (k, val) {
+                       sweetAlert("登录失败",val[0],'error');
+                       return false;
+                   });
+               }
+           });
+           return false;
+       }
+   })
+</script>
 @show

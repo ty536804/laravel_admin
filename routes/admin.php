@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
     Route::get('login', 'AdminController@loginViews');  //后台登陆页面
     Route::post('loginc', 'AdminController@login'); //后台登陆逻辑
-    Route::get('logout', 'AdminController@logout');  //退出
+    Route::get('logout', 'AdminController@logout')->name('admin.logout');  //退出
 });
 
 //后台管理
-Route::group(['middleware'=>'adminAuth','prefix' => 'admin','namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
     //用户
     Route::group(['prefix' => 'user'], function () {
         Route::get('view', 'UserController@view');
@@ -18,6 +18,9 @@ Route::group(['middleware'=>'adminAuth','prefix' => 'admin','namespace' => 'Admi
         Route::post('listdata', 'UserController@getListData');
         Route::post('save', 'UserController@save');
         Route::post('linkage', 'UserController@Linkage');
+    
+        Route::post("change","UserController@change");
+        Route::post("update","UserController@updateInfo");
     });
     //权限
     Route::group(['prefix' => 'power'], function () {
@@ -38,8 +41,10 @@ Route::group(['middleware'=>'adminAuth','prefix' => 'admin','namespace' => 'Admi
         Route::post('delete','DepartmentController@delete');
         Route::post('save','DepartmentController@save');
         Route::get('powertreedata','DepartmentController@powerTreeData');
+        Route::post('save','DepartmentController@save');
         
     });
+    
     //职位
     Route::group(['prefix' => 'posi'], function () {
         Route::get('view','PositionController@view');
@@ -54,7 +59,6 @@ Route::group(['middleware'=>'adminAuth','prefix' => 'admin','namespace' => 'Admi
     Route::group(['prefix' => 'self'], function () {
         Route::get('set','UserController@set');
         Route::post('save','UserController@set_save');
-        Route::post('linkage','UserController@linkage');
     });
 });
 //首页管理

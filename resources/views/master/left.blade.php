@@ -12,19 +12,19 @@
                  }
                 ?>
                 @if(!empty($userinfo->m_url))
-                        <img src="{{ "/uploadfile/".$userinfo->m_url }}" class="img-circle" alt="User Image">
+                        <img src="{!! uploadfile() !!}{{ $userinfo->m_url }}" class="img-circle" alt="User Image">
                 @else
                         <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle"  alt="User Image">
                 @endif
 
             </div>
             <div class="pull-left info">
-                @if(empty($userinfo->position_name) && empty($userinfo->nick_name))
+                @if(empty($userinfo->position->position_name) && empty($userinfo->nick_name))
                     <p>Alexander Pierce</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 @else
                     <p>{{$userinfo->nick_name ?? "张三"}}</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> {{$userinfo->position_name}}</a>
+                    <a href="#"><i class="fa fa-circle text-success"></i> {{$userinfo->position->position_name}}</a>
                 @endif
             </div>
         </div>
@@ -46,11 +46,6 @@
             <li class="header">系统导航</li>
             <?php
             $leftMenu  = $user->leftMenu();
-            if($leftMenu == 1)
-                {
-                    echo "<script>alert('此账号已经登录 不允许进入客服聊天界面!');location.href='".$_SERVER["HTTP_REFERER"]."';</script>";
-                    die;
-                }
             if(empty($leftMenu)){
                 $url = env('APP_URL');
                 header("Location: $url");

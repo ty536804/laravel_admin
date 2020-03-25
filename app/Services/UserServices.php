@@ -87,13 +87,13 @@ class UserServices
         }
         
         if ($userInfo->pwd != md5(trim($oldPWD))) {
-            return $this->error("两次密码不一致");
+            return $this->error("原始密码密码不正确");
         }
-    
+        $data['pwd'] = md5(trim($oldPWD));
         $userInfo->fill($data);
         if ($userInfo->save()) {
             $AdminUser = new AdminUser();
-            $AdminUser->setUser($userInfo);
+            $AdminUser->forget();
             return $this->success("修改成功");
         } else {
             return $this->error("修改失败");

@@ -5,8 +5,8 @@
 
 @section('css')
     <link href="{{asset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/css/plugins/jsTree/style.min.css')}}" rel="stylesheet"/>
+    <link href="{{asset('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{ asset('admin/css/plugins/jsTree/style.min.css')}}" rel="stylesheet"/>
 @endsection
 
 @yield('css')
@@ -21,7 +21,7 @@
     <!-- iCheck -->
     <script src="{{asset('admin/js/plugins/iCheck/icheck.min.js')}}"></script>
 
-    <script src="{{asset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('/admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
 
     <script src="{{asset('admin/js/plugins/jsTree/jsTree.js')}}"></script>
 

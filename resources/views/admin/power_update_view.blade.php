@@ -5,14 +5,14 @@
 
 @section('css')
     <link href="{{asset('admin/css/plugins/iCheck/custom.css')}}" rel="stylesheet">
-    <link href="{{asset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{asset('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
 
 @endsection
 
 @section('js')
     <!-- iCheck -->
     <script src="{{asset('admin/js/plugins/iCheck/icheck.min.js')}}"></script>
-    <script src="{{asset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('/admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
 
     <script>
         $(document).ready(function () {
@@ -66,10 +66,15 @@
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     <input id="id" name="id" type="hidden" value="{{$info->id}}">
-                                    <input id="icon" name="icon"  type="hidden" placeholder="fa-user-o" class="form-control" value="#">
                                     <label class="col-sm-3 control-label">权限名称：</label>
                                     <div class="col-sm-8">
                                         <input id="pname" name="pname"  type="text" class="form-control" value="{{$info->pname}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">权限图标：</label>
+                                    <div class="col-sm-8">
+                                        <input id="icon" name="icon"  type="text" placeholder="fa-user-o" class="form-control" value="{{$info->icon}}">
                                     </div>
                                 </div>
                                 @if($pid != 0)
@@ -84,17 +89,6 @@
                                         </div>
                                     </div>
                                 @endif
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">项目：</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" name="project_id" id="project_id">
-                                            <option value="0" @if($info->project_id == 0 ) selected="selected" @endif>系统</option>
-                                            <option value="1" @if($info->project_id == 1 ) selected="selected" @endif>简洗</option>
-                                            <option value="2" @if($info->project_id == 2 ) selected="selected" @endif>快递</option>
-                                            <option value="3" @if($info->project_id == 3 ) selected="selected" @endif>工单</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">权限连接：</label>
                                     <div class="col-sm-8">

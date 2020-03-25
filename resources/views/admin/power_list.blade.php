@@ -6,7 +6,7 @@
 @section('css')
     <link href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/datatables/extensions/Buttons/css/buttons.dataTables.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{asset('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
 
 @endsection
 
@@ -17,7 +17,7 @@
     <script src="{{asset('plugins/datatables/extensions/Buttons/js/buttons.html5.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('plugins/datatables/extensions/Buttons/js/buttons.export.js')}}" type="text/javascript"></script>
     <script src="{{asset('plugins/jszip/dist/jszip.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset('admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{asset('/admin/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
 
 
     <script type="text/javascript">
@@ -64,12 +64,8 @@
                     },
                     {
                         "render" : function(data, type, row ,meta){
+                        // <button class=\"btn btn-sm btn-danger\" onclick='del("+row.id+")'>禁用</button> " +
                             var str="<a class=\"btn btn-sm btn-primary\" href=\"/admin/power/updateview?id=" + row.id+ "\">编辑</a>";
-                            if (row.status == 0){
-                                str +=" <button class=\"btn btn-sm btn-success\" onclick='del("+row.id+",1)'>启用</button>";
-                            } else{
-                                str +=" <button class=\"btn btn-sm btn-danger\" onclick='del("+row.id+",0)'>禁用</button>";
-                            }
                             if(row.parent_id == 0){
                                 str +=" <a class=\"btn btn-sm btn-success\" href=\"/admin/power/view?pid="+row.id+"\" >添加二级</a>";
                             }
@@ -81,14 +77,14 @@
             });
             return table;
         }
-        function del(id,status) {
+        function del(id) {
             swal({
-                    title: "确定操作吗？",
-                    // text: "你将无法恢复该虚拟文件！",
+                    title: "确定删除吗？",
+                    text: "你将无法恢复该虚拟文件！",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定操作！",
+                    confirmButtonText: "确定删除！",
                     closeOnConfirm: false
                 },
                 function(){
@@ -96,7 +92,7 @@
                         type: "POST",
                         dataType: "json",
                         url: "{{URL::action('Admin\PowerController@delete')}}",
-                        data: {'_token':'{{ csrf_token() }}','id':id,'status':status},
+                        data: {'_token':'{{ csrf_token() }}','id':id},
                         success: function (result) {
                             if (result.code == "10000") {
                                 myTable.ajax.reload(null,false);
@@ -175,40 +171,41 @@
             </div><!-- /.col -->
         </div>
     </section>
+
     <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">权限管理</h4>
+                    <h4 class="modal-title">用户管理</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal m-t" id="addform">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <input id="id" name="id" type="hidden" value="">
+                            {{--<input id="id" name="id" type="hidden" value="{{$info->id}}">--}}
                             <input id="purl" name="purl" type="hidden" class="form-control" value="#">
-                            <input id="pindex" name="pindex"  type="hidden" class="form-control" value="1">
                             <label class="col-sm-3 control-label">权限名称：</label>
                             <div class="col-sm-8">
-                                <input id="pname" name="pname"  type="text" class="form-control" value="">
+                                <input id="pname" name="pname"  type="text" class="form-control" value="{{$info->pname}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">权限图标：</label>
                             <div class="col-sm-8">
-                                <input id="icon" name="icon"  type="text" class="form-control" value="">
+                                <input id="icon" name="icon"  type="text" class="form-control" value="{{$info->icon}}">
                             </div>
                         </div>
+                        {{--<div class="form-group">--}}
+                            {{--<label class="col-sm-3 control-label">链接地址：</label>--}}
+                            {{--<div class="col-sm-8">--}}
+                                <input id="purl" name="purl" type="hidden" class="form-control" value="#">
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">项目：</label>
+                            <label class="col-sm-3 control-label">排序：</label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="project_id" id="project_id">
-                                    <option value="0">系统</option>
-                                    <option value="1">简洗</option>
-                                    <option value="2">快递</option>
-                                    <option value="3">工单</option>
-                                </select>
+                                <input id="pindex" name="pindex"  type="text" class="form-control" value="{{$info->pindex}}">
                             </div>
                         </div>
                         <div class="form-group">
