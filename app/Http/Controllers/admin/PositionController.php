@@ -51,19 +51,12 @@ class PositionController extends Controller
     }
     
     public function list(){
-        $data['position'] =$a = SysAdminDepartment::with(['position'=>function($query){
-            $query->where('status',1);
-        }])->where([['status',1]])->get()->keyBy('id');
-        $data['department'] = SysAdminDepartment::where([['parent_id',0],['status',1]])
-            ->with(['children'=>function($query){
-                $query->where('status',1);
-            }])->get();
-        
-        $data['all'] = BaseSysAdminDepartment::all()->keyBy('id');
-        
+        $position = BaseSysAdminPosition::all()->keyBy('id');
+        $department = SysAdminDepartment::where('parent_id',0)->with('children')->get();
+        $all = BaseSysAdminDepartment::all()->keyBy('id');
         //权限
-        $data['power'] = SysAdminPower::where('parent_id',0)->with('allchild')->get();
-        return view('admin.position_list',$data);
+        $power = SysAdminPower::where('parent_id',0)->with('allchild')->get();
+        return view('admin.position_list',['position'=>$position,'department'=>$department,'power'=>$power,'all'=>$all]);
     }
     
     public function getListData(){
