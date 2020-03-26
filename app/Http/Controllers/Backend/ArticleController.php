@@ -14,6 +14,12 @@ class ArticleController extends Controller
     //
     use ApiResult;
     
+    /**
+     * @description 文章首页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-26
+     */
     public function show() {
         return view("article.index");
     }
