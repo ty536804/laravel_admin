@@ -69,7 +69,7 @@ class FileInputUploadController extends Controller
                     $media = new BaseSysMedia();
                     $filename = explode('.',$fileinfo['name']);
                     $extname = strtolower(end($filename));
-                    $path = $type."/".date('Ymd')."/";
+                    $path = "/".$type."/".date('Ymd')."/";
                     
                     if(!file_exists(config('www.uploadfile').$path)){
                         Log::error(config('www.uploadfile')."$path");
@@ -175,6 +175,7 @@ class FileInputUploadController extends Controller
                     unset($media->m_metadata);
                     unset($media->updated_at);
                     unset($media->created_at);
+                    Log::info(json_encode($media));
                     $info=array('code'=>1,'initialPreview'=>$initPreview,'initialPreviewConfig'=>$initialPreviewConfig,'msg'=>"上传成功",'data'=>$media);
                 }else{
                     ///上传文件发生错误

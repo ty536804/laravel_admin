@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Models\Backend\Banner;
 use App\Models\Backend\BannerPosition;
 use App\Tools\ApiResult;
-use App\Tools\Result;
 use Illuminate\Support\Facades\Log;
 
 class BannerServices
@@ -18,25 +17,55 @@ class BannerServices
      * @auther caoxiaobin
      * date: 2020-03-25
      */
-    public function bannerDel($id)
+    public function bannerSave($data)
     {
+        Log::info(json_encode($data));
+        $id = $data['id'] ?? 0;
+        $bname = $data['bname'] ?? "";
+        if (empty($bname)) {
+            return $this->error("名称不能为空");
+        }
+        
+        $bposition = $data['bposition'] ?? "";
+        if (empty($bposition)) {
+            return $this->error("显示位置不能为空");
+        }
+        
+        $target_link = $data['target_link'] ?? "";
+        if (empty($target_link)) {
+            return $this->error("链接不能为空");
+        }
+        
+        $imgurl = $data['imgurl'] ?? "";
+        
+        if (empty($imgurl)) {
+            return $this->error("请上传banner图片");
+        }
+        
+        $picInfo = json_decode($imgurl,true);
+        $picInfo = reset($picInfo);
+        $data['imgurl'] = $picInfo['m_url'];
+        
         if ($id < 1) {
-            return $this->error("操作错误");
+            $banner = new Banner();
+        } else {
+            $banner= Banner::find($id);
         }
         
-        $banner = Banner::find($id);
-        if (!$banner) {
-            Log::info("图片不存在");
-            return $this->error("图片不存在");
-        }
-        
-        $banner->is_show = 1;
+        $banner->fill($data);
         if ($banner->save()) {
             return $this->success("操作成功");
         }
         return $this->error("操作失败");
     }
     
+    /**
+     * @description banner位置
+     * @param $data
+     * @return \Illuminate\Http\JsonResponse
+     * @auther caoxiaobin
+     * date: 2020-03-26
+     */
     public function positionSave($data) {
         $position_name = $data['position_name'] ?? "";
         if (empty($position_name)) {
@@ -50,13 +79,16 @@ class BannerServices
     
         $id = $data['id'] ?? 0;
         if ($id < 1 ) {
-            $banner = new BannerPosition();
+            $bannerPosi = new BannerPosition();
         } else {
-            $banner = BannerPosition::find($id);
+            $bannerPosi = BannerPosition::find($id);
+            if ($data['is_show'] ==2 &&  Banner::where("bposition", $id)->exists()) {
+                return $this->error("轮播图取消展示之后放开，关闭");
+            }
         }
-        
-        $banner->fill($data);
-        if ($banner->save()) {
+    
+        $bannerPosi->fill($data);
+        if ($bannerPosi->save()) {
             return $this->success("操作成功");
         }
         return $this->error("操作失败");

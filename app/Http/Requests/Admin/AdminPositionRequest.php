@@ -27,12 +27,12 @@ class AdminPositionRequest extends FormRequest
         $id=Input::get('id');
         // Log::error('======inputs====',json_encode(Input::all()));
         $addRules=[
-            'position_name' =>'required|unique:edx_admin.sys_admin_position,position_name',
+            'position_name' =>'required|unique:magic_math.sys_admin_position,position_name',
             'department_id' =>'required',
             'desc' =>'required',
         ];
         $updateRules=[
-            'position_name' =>'required|unique:edx_admin.sys_admin_position,position_name,'.$id.',id',
+            'position_name' =>'required|unique:magic_math.sys_admin_position,position_name,'.$id.',id',
             'department_id' =>'required',
             'desc' =>'required',
         ];

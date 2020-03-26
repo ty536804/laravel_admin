@@ -29,7 +29,7 @@
             });
             let uid = '{{$admin_id}}';
             let file = new upload({ uid:uid,pictype:1001,uploadid:"fileupload",tag:"imgurl",token:'<?php echo e(csrf_token());?>'});
-            file.initUpload('{!! $info->imgurl !!}','{{asset('storage/uploadfile/').'/'}}') ;
+            file.initUpload('{!! $imgurl !!}','{{asset('storage/uploadfile/').'/'}}') ;
         });
 
 
@@ -52,24 +52,6 @@
             selectedTextFormat:"count > 5"
         });
 
-
-        //获取位置图片尺寸
-        {{--$(document).on('change','.position',function () {--}}
-        {{--    $.ajax({--}}
-        {{--        type: "POST",--}}
-        {{--        dataType: "json",--}}
-        {{--        url:"{{URL::action('Backend\BannerController@position')}}",--}}
-        {{--        data:{"_token":"{{csrf_token()}}","position_id":$('#bposition option:checked').val()},--}}
-        {{--        success:function (context) {--}}
-        {{--            if (context.code == 10000) {--}}
-        {{--                var arr=context.data.image_size.split("*");--}}
-        {{--                $("#tips").html("上传图片大小为："+context.data.image_size);--}}
-        {{--        }--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--});--}}
-
-
         $(document).on('click','#button_id',function () {
             $.ajax({
                 type: "POST",
@@ -80,7 +62,7 @@
                     if (result.code == "10000") {
                         swal({title:result.msg,type: 'success'},
                                 function () {
-                                    window.location.href="/backend/list";
+                                    window.location.href="/backend/show";
                                 });
                     } else {
                         sweetAlert("操作失败",result.msg,'error');
@@ -88,10 +70,7 @@
 
                 },
                 error: function (result) {
-                    $.each(result.responseJSON.errors, function (k, val) {
-                        sweetAlert("操作失败",val[0],'error');
-                        return false;
-                    });
+                    swal({title:"网络错误",type: 'error'});
                 }
             });
             return false;
@@ -126,9 +105,9 @@
                                     <div class="col-sm-8">
                                         <select class="col-sm-12 form-control" id="bposition" name="bposition">
                                             <option value="">请选择</option>
-{{--                                            @foreach($position as $val)--}}
-{{--                                                <option value="{{$val['id']}}"  @if($info->bposition==$val['id']) selected="selected" @endif>{{$val['position_name']}}</option>--}}
-{{--                                            @endforeach--}}
+                                            @foreach($position as $val)
+                                                <option value="{{$val['id']}}"  @if($info->bposition==$val['id']) selected="selected" @endif>{{$val['position_name']}}</option>
+                                            @endforeach
                                         </select>
                                         <span style="color: red" id="tips">如果列表为空请到banner位置列表添加</span>
                                     </div>
@@ -142,18 +121,6 @@
                                         <span style="color: red;">若无请填#</span>
                                     </div>
                                 </div>
-{{--                                <div class="form-group cityList">--}}
-{{--                                    <label class="col-sm-3 control-label">*城市：</label>--}}
-{{--                                    <div class="col-sm-8">--}}
-{{--                                        <select class="col-sm-12 form-control" id="city" name="city">--}}
-{{--                                            <option value="">请选择</option>--}}
-{{--                                            <option value="10000" @if($info->city==10000) selected="selected" @endif>全国</option>--}}
-{{--                                            @foreach($cities as $city)--}}
-{{--                                                <option value="{{$city['aid']}}" @if($info->city==$city['aid']) selected="selected" @endif>{{$city['aname']}}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                        </select>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">*上传banner图片：</label>
                                     <div class="col-md-8">
@@ -165,30 +132,12 @@
                                         </div>
                                     </div>
                                 </div>
-
-{{--                                <div class="form-group">--}}
-{{--                                    <label class="col-sm-3 control-label">* 开始时间</label>--}}
-{{--                                    <div class="col-sm-8">--}}
-{{--                                        <input id="begin_time" name="begin_time" type="text" autocomplete="off" class="form-control" value="{{$info->begin_time}}">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="form-group">--}}
-{{--                                    <label class="col-sm-3 control-label">* 结束时间</label>--}}
-{{--                                    <div class="col-sm-8">--}}
-{{--                                        <input id="end_time" name="end_time" type="text" autocomplete="off" class="form-control" value="{{$info->end_time}}">--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">* 状态</label>
                                     <div class="col-sm-8">
                                         <select class="col-sm-12 form-control" id="astatus" name="astatus">
-                                            @if($info->is_show==1)
-                                                <option value="1" hidden>显示</option>
-                                                @else
-                                                <option value="2" hidden>隐藏</option>
-                                            @endif
-                                            <option value="1">显示</option>
-                                            <option value="2">隐藏</option>
+                                            <option value="1" @if($info->is_show==1) selected @endif>显示</option>
+                                            <option value="2" @if($info->is_show==2) selected @endif>隐藏</option>
                                         </select>
                                     </div>
                                 </div>

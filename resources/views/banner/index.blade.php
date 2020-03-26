@@ -81,66 +81,15 @@
                 },
                 "columns": [
                     { "data": "id"},
-                    { "data": "city"},
                     { "data": "bname"},
-                    { "data": "get_position.position_name"},
+                    { "data": "place.position_name"},
                     { "data": "target_link"},
                     { "data": "imgurl"},
-                    { "data": "begin_time"},
-                    { "data": "end_time"},
+                    // { "data": "begin_time"},
+                    // { "data": "end_time"},
                     { "data": "is_show"}
                 ],
                 "columnDefs": [
-                    {
-                        "render" : function(data, type, row){
-                            let objs =$('#cityList').val(),
-                                obj = JSON.parse(objs);
-                           var str='';
-                            if(row.city==10000){
-                                str+="全国";
-                            }else{
-                                str+=obj[row.city];
-                            }
-
-                            return str;
-                        },
-                        "targets" :1,
-                    },
-//                    {
-//                        "render" : function(data, type, row){
-//                            let objs =$('#areaList').val(),
-//                                    obj = JSON.parse(objs);
-//                            var str='';
-//                            var area=row.area.split("|");
-//                            for(var i=0;i<area.length;i++){
-//                                str+=obj[area[i]]+" ";
-//                            }
-//
-//                            return str;
-//                        },
-//                        "targets" :2,
-//                    },
-                    {
-                        "render" : function(data, type, row){
-                            var str="";
-                            if(row.is_show==1){
-                                str+='显示';
-                            }else{
-                                str+='隐藏';
-                            }
-                            return str;
-                        },
-                        "targets" :8,
-                    },
-                    {
-                        "render" : function(data, type, row){
-                            var str="";
-                            str +='<a class=\"btn btn-sm btn-primary\" href="/ad/view?id='+row.id+'">编辑</a> ' +
-                                    "<a class=\"btn btn-sm btn-danger\" onclick='del("+row.id+")'>删除</a>";
-                            return str;
-                        },
-                        "targets" :9,
-                    },
                     {
                         "render" : function(data, type, row){
                             if (data == null) {
@@ -151,8 +100,29 @@
                             }
                             return str;
                         },
+                        "targets" :4,
+                    },
+                    {
+                        "render" : function(data, type, row){
+                            var str="";
+                            if(row.is_show==1){
+                                str+='显示';
+                            }else{
+                                str+='隐藏';
+                            }
+                            return str;
+                        },
                         "targets" :5,
-                    }
+                    },
+                    {
+                        "render" : function(data, type, row){
+                            let str="";
+                            str +='<a class=\"btn btn-sm btn-primary\" href="/backend/detail?id='+row.id+'">编辑</a> ' +
+                                    "<a class=\"btn btn-sm btn-danger\" onclick='del("+row.id+")'>删除</a>";
+                            return str;
+                        },
+                        "targets" :6,
+                    },
                 ]
             });
             return table;
@@ -201,45 +171,23 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="col-xs-12" style="margin: 10px 0px;">
-                        <div class="col-md-3  pl0 pr0" >
-                            <div class="form-group">
-
-                                <div class="col-xs-7 cityList">
-                                    <select class="col-sm-12 form-control" id="city_id" name="city_id" >
-                                        <option value="">--城市--</option>
-                                        <option value="10000">全国</option>
-                                        @foreach($cities as $key=>$val)
-                                            <option value="{{$val->id}}">{{$val->aname}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-1 ">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-danger sub_search">查询</button>
-                            </div>
-                        </div>
                         <div class="col-md-1 ">
                             <div class="btn-group btn-group-sm">
                                 <a  class="btn btn-success" href="/backend/detail">新建</a>
                             </div>
                         </div>
                     </div>
-{{--                    <input type="hidden" value="{{$cityList}}" id="cityList">--}}
-                    {{--<input type="hidden" value="{{$areaList}}" id="areaList">--}}
                     <div class="box-body">
                         <table id="mytable" class="table table-bordered table-striped" cellspacing="0">
                             <thead>
                             <tr>
                                 <th>id</th>
-                                <th>城市</th>
                                 <th>名称</th>
                                 <th>位置</th>
                                 <th>跳转链接</th>
                                 <th>图片</th>
-                                <th>显示开始时间</th>
-                                <th>显示结束时间</th>
+{{--                                <th>显示开始时间</th>--}}
+{{--                                <th>显示结束时间</th>--}}
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>

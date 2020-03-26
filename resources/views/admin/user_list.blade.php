@@ -72,8 +72,6 @@
                             let objs =$('#city_names').val(),
                                 obj = JSON.parse(objs);
                             var str = disivion(data,obj);
-                            console.log(str)
-                            // str = "<div style=\"width:100px;word-wrap:break-word;\">"+str+"</div>";
                             return str;
                         },
                         "targets" :6,
@@ -90,10 +88,12 @@
                         "targets" :7,
                     },
                     {
-                        "render" : function(data, type, row){
-                            var str="<a class=\"btn btn-sm btn-danger\" onclick='del("+row.id+")'>禁用</a> <a class=\"btn btn-sm btn-primary\"  data-target=\"#myModal2\" href=\"/admin/user/view?id="+row.id+"\">修改</a>";
-
-                            return str;
+                        "render" : function(data, type, row,meta){
+                            if (Number(row.status)==1) {
+                                return "<a class=\"btn btn-sm btn-danger\" onclick='del("+row.id+",-1)'>禁用</a> <a class=\"btn btn-sm btn-primary\"  onclick='edit("+meta.row+")'>修改</a>";
+                            } else {
+                                return "<a class=\"btn btn-sm btn-info\" onclick='del("+row.id+",1)'>开启</a> <a class=\"btn btn-sm btn-primary\" onclick='edit("+meta.row+")'>修改</a>";
+                            }
                         },
                         "targets" :8,
                     }
@@ -101,7 +101,14 @@
             });
             return table;
         }
-        function del(id) {
+
+        /**
+         * 禁用开启账号
+         * @param id
+         * @param _status
+         * @returns {boolean}
+         */
+        function del(id,_status) {
             swal({
                     title: "确定删除吗？",
                     text: "你将无法恢复该虚拟文件！",
@@ -116,7 +123,7 @@
                         type: "POST",
                         dataType: "json",
                         url: "{{URL::action('Admin\UserController@delete')}}",
-                        data: {'_token':'{{ csrf_token() }}','id':id},
+                        data: {'_token':'{{ csrf_token() }}','id':id,"status":_status},
                         success: function (result) {
                             if (result.code == "10000") {
                                 myTable.ajax.reload(null,false);
@@ -135,6 +142,26 @@
                 });
             return false;
         }
+
+        function edit() {
+            $('.modal-title').empty().html('编辑');
+            let index  = Number(id),
+                data = myTable.rows(index).data()[0];
+            $("#addform #id").val(data.id);
+            $("#addform #nick_name").val(data.nick_name);
+            $("#addform #login_name").val(data.login_name);
+            $("#addform #email").val(data.email);
+            $("#addform #city_id").val("10000");
+
+            $("#addform #tel").val(data.tel);
+            $("#addform #pwd").val("");
+
+            $("#addform #department_id").val(data.department_id);
+            $("#addform #position_id").val(data.position_id);
+            $("#myModal2").modal("show");
+        }
+
+        //提交账号
         $('#addpower').on('click', function () {
             $.ajax({
                 type: "POST",
@@ -143,10 +170,9 @@
                 data: $("#addform").serialize(),
                 success: function (result) {
                     if (result.code == "10000") {
-                        swal({title:result.msg,type: 'success'},
-                            function () {
-                                myTable.ajax.reload(null,false);
-                            });
+                        sweetAlert("操作成功",result.msg,'success');
+                        myTable.ajax.reload(null,false);
+                        $("#myModal2").modal('hide');
                     } else {
                         sweetAlert("操作失败",result.msg,'error');
                     }
@@ -160,6 +186,22 @@
             });
             return false;
         });
+
+        //添加用户
+        $("#btn").on("click",function () {
+            $("#addform #id").val("");
+            $("#addform #nick_name").val("");
+            $("#addform #login_name").val("");
+            $("#addform #email").val("");
+            $("#addform #city_id").val("10000");
+
+            $("#addform #tel").val("");
+            $("#addform #pwd").val("");
+
+            $("#addform #department_id").val("");
+            $("#addform #position_id").val("");
+        });
+
         $('#department_id').on('change',function () {
             var options=$("#department_id option:selected").val();
             console.log(options);
@@ -293,19 +335,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">城市：</label>
-                            <div class="col-sm-8">
-                                <select class="selectpicker selectcity"  multiple data-live-search="true">
-                                    @foreach($city as $k=>$v)
-                                        <option value="{{$v['aid']}}">{{$v['aname']}}</option>
-                                    @endforeach
-                                </select>
-                                <input type="hidden" id="city_id" name="city_id">
-                            </div>
-                        </div>
-                        <label class="col-sm-3 control-label"></label><font color="#d2691e">城市填写要查询数据的城市(查询所有城市选择全国即可)</font>
-
+                        <input type="hidden" id="city_id" name="city_id" value="10000">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">状态：</label>
                             <div class="radio i-checks">
@@ -324,7 +354,4 @@
             </div>
         </div>
     </div>
-
-
-
 @endsection

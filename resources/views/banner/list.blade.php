@@ -78,7 +78,7 @@
                 "columnDefs": [
                     {
                         "render" : function(data, type, row){
-                            var str="";
+                            let str="";
                             if(row.is_show==1){
                                 str+='显示';
                             }else{
@@ -89,11 +89,12 @@
                         "targets" :4,
                     },
                     {
-                        "render" : function(data, type, row){
-                            var str="";
-                            str +="<a class=\"btn btn-sm btn-primary\" onclick='edit("+row.id+")'>编辑</a> ";
-//                                    "<a class=\"btn btn-sm btn-danger\" onclick='del("+row.id+")'>删除</a>";
-                            return str;
+                        "render" : function(data, type, row,meta){
+                            if (Number(data)==1) {
+                                return '<label class="btn btn-danger btn-sm" onclick="closed('+meta.row+',2)">关闭</label>&nbsp;<button class="btn btn-default btn-sm" onclick="edit('+meta.row+')">编辑</button >';
+                            } else {
+                                return '<label class="btn btn-info btn-sm" onclick="closed('+meta.row+',1)">开启</label>&nbsp;<button  class="btn btn-default btn-sm" onclick="edit('+meta.row+')">编辑</button  >';
+                            }
                         },
                         "targets" :5,
                     }
@@ -102,32 +103,46 @@
             return table;
         }
 
-        function edit(id){
-            $.ajax({
-                type:"POST",
-                dataType:"json",
-                url: "{{URL::action('Backend\BannerController@positionEdit')}}",
-                data:{'_token':'{{ csrf_token() }}','id':id},
-                success: function (result) {
-                    if (result.code == "10000") {
-                        console.log(result.data);
-                        $("#id").val(result.data.id);
-                        $("#position_name").val(result.data.position_name);
-                        $("#image_size").val(result.data.image_size);
-                        $("#status").val(result.data.is_show);
-                        $("#create").show();
-                    } else {
-                        swal({title:result.msg,type: 'error'});
-                    }
-                },
-                error: function (result) {
-                    swal({title:"网络错误",type: 'error'});
-                }
-            });
+        /**
+         * 开启/关闭
+         * */
+        function closed(id,_show) {
+            let index  = Number(id),
+                data = myTable.rows(index).data()[0];
+            $("#order_data #id").val(data.id);
+            $("#order_data #position_name").val(data.position_name);
+            $("#order_data #image_size").val(data.image_size);
+            $("#order_data #is_show").val(_show);
+            $("#order_data #info").val(data.info);
+            subCon();
         }
 
+        /**
+         * 编辑
+         * */
+        function edit(id){
+            $('.modal-title').empty().html('编辑');
+            let index  = Number(id),
+                data = myTable.rows(index).data()[0];
+            $("#order_data #id").val(data.id);
+            $("#order_data #position_name").val(data.position_name);
+            $("#order_data #image_size").val(data.image_size);
+            $("#order_data #is_show").val(data.is_show);
+            $("#order_data #info").val(data.info);
+            $("#create").modal("show");
+        }
 
+        /**
+         * 提交内容
+         * */
         $(document).on('click','#button_id',function () {
+            subCon();
+        });
+
+        /**
+         * 统一提交AJAX
+         * */
+        function subCon() {
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -135,10 +150,9 @@
                 data: $("#order_data").serialize(),
                 success: function (result) {
                     if (result.code == "10000") {
-                        swal({title:result.msg,type: 'success'},
-                                function () {
-                                    window.location.reload();
-                                });
+                        sweetAlert("操作成功",result.msg,'success');
+                        myTable.ajax.reload(null,false);
+                        $("#create").modal('hide');
                     } else {
                         sweetAlert("操作失败",result.msg,'error');
                     }
@@ -152,15 +166,20 @@
                 }
             });
             return false;
-        });
+        }
 
-        $("#add").click(function(){
-            $("#create").show();
-            $("#order_data").reset();
-        });
-        $("#cancel").click(function(){
-            $("#create").hide();
-        });
+        /**
+         * 创建
+         */
+        $("#add").on("click", function () {
+            $('.modal-title').empty().html('创建');
+            $("#order_data #id").val("");
+            $("#order_data #position_name").val("");
+            $("#order_data #info").val("");
+            $("#order_data #image_size").val("");
+            $("#order_data #is_show").val(1);
+            $("#create").modal("show");
+        })
     </script>
 @endsection
 
@@ -192,7 +211,8 @@
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div><!-- /.col -->
-            <div class="modal fade in" id="create" aria-hidden="false" style="display: none;">
+{{--            <div class="modal fade in" id="create" aria-hidden="false" style="display: none;">--}}
+            <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body row">

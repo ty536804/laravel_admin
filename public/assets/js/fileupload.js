@@ -87,10 +87,9 @@
                     alert(arg.title + "," + name);
                 };
 
-                console.log(control);
 
                 this.initUpload = function (filestr, _fileroot) {
-                    console.log(filestr);
+                    // console.log(filestr);
                     var initdata_1 = uploadInit(filestr, _fileroot);
                     control.fileinput({
                         language: "zh",
@@ -113,7 +112,7 @@
                         showCaption: false
                     });
                     control.on('fileuploaded', function (event, data, previewid, index) {
-                        console.log("上传ccc");
+                        // console.log("上传ccc");
                         if (data.response.code == 1) {
                             builPicdata(datatag, data.response.data);
                         }
@@ -126,8 +125,7 @@
                     //     $('#' + datatag).val("");
                     //});
                     control.on('filedeleted', function (event, key, jqXHR, data) {
-                        console.log("文件删除");
-
+                        // console.log("文件删除");
                         deletePicdata(datatag, key);
                     });
                 };
@@ -139,17 +137,17 @@
                     } else {
                         obj = {};
                     }
-                    console.log(obj);
+                    console.log("11111:"+data.id);
                     obj[data.id] = data;
                     $('#' + dataid).val(JSON.stringify(obj));
                 };
 
                 var deletePicdata = function deletePicdata(dataid, media_key) {
 
-                    console.log("删除文件 跟新数据 Key=" + media_key);
-                    console.log("删除文件 跟新数据 Key=" + $('#' + dataid).val());
+                    // console.log("删除文件 跟新数据 Key=" + media_key);
+                    // console.log("删除文件 跟新数据 Key=" + $('#' + dataid).val());
                     obj = JSON.parse($('#' + dataid).val());
-                    console.log(obj);
+                    // console.log(obj);
                     delete obj[media_key];
                     $('#' + dataid).val(JSON.stringify(obj));
                 };
@@ -178,7 +176,7 @@
                     initData.preview = preview;
                     initData.preconfig = preconfig;
 
-                    console.log(initData);
+                    console.log("test1"+initData);
                     return initData;
                 };
             };

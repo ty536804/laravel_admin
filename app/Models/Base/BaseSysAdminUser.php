@@ -21,7 +21,7 @@ class BaseSysAdminUser extends Model
         'position_id', // 职位 角色
         'city_id', // 城市id
         'status', // 状态 1 正常 -1 锁定
-        'project_id', // 归属项目 0系统 1 简洗 2快递 3工单
+        'project_id', // 归属项目 0系统
         'created_at', // 
         'updated_at', // 
     ];
