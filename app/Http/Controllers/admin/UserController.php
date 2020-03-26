@@ -14,6 +14,7 @@ use App\Services\UserServices;
 use App\Tools\Constant;
 use App\Tools\Result;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -80,6 +81,13 @@ class UserController extends Controller
         return view('admin.user_list',$data);
     }
     
+    /**
+     * @description 管理员列表
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     * @auther caoxiaobin
+     * date: 2020-03-26
+     */
     public function getListData(){
         $list = SysAdminUser::where('sys_admin_user.id','>',0)->select('sys_admin_user.id','nick_name','email','tel','login_name',
             'sys_admin_user.city_id','sys_admin_user.department_id','sys_admin_user.position_id',
@@ -91,6 +99,13 @@ class UserController extends Controller
         return $datatable->make(true);
     }
     
+    /**
+     * @description 添加登录账号
+     * @param AdminUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @auther caoxiaobin
+     * date: 2020-03-26
+     */
     public function save(AdminUserRequest $request){
         $result =new Result();
         if($request->ajax()) {
@@ -102,13 +117,13 @@ class UserController extends Controller
                     $admin_user  = new SysAdminUser();
                     $admin="";
                 }
-                if (in_array(10000,explode(',',$request->city_id))){
-                    if (count(explode(',',$request->city_id)) != 1){
-                        $result->msg = "添加全国不可选择分城市";
-                        $result->code =  Constant::ERROR;
-                        return response()->json($result);
-                    }
-                }
+//                if (in_array(10000,explode(',',$request->city_id))){
+//                    if (count(explode(',',$request->city_id)) != 1){
+//                        $result->msg = "添加全国不可选择分城市";
+//                        $result->code =  Constant::ERROR;
+//                        return response()->json($result);
+//                    }
+//                }
                 $admin_user->fill($request->all());
                 if (empty($request->id) || !empty($request->pwd)){
                     $admin_user->pwd =  md5($request->get('pwd'));
@@ -120,7 +135,9 @@ class UserController extends Controller
                 $result->msg = "操作成功";
                 $result->code =  Constant::OK;
             } catch (\Exception $e) {
-                $result->msg = "操作成功";
+                Log::info($e->getMessage()."账号添加失败");
+                $result->msg = "操作失败";
+                $result->code =  Constant::ERROR;
             }
         }else{
             $result->msg  = "Invalid Request";
@@ -128,49 +145,47 @@ class UserController extends Controller
         return response()->json($result);
     }
     
-    
+    /**
+     * @description 禁用账号
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @auther caoxiaobin
+     * date: 2020-03-26
+     */
     public function delete(Request $request){
         $result =new Result();
-        if($request->ajax()) {
+        if ($request->ajax()) {
             try {
-                if($request->id>0){
-                    SysAdminUser::find($request->id)->update(['status'=>$request->status]);
+                $id =  $request->post("id");
+                if ($id < 1) {
+                    $result->msg = "非法操作";
+                    $result->code =  Constant::ERROR;
+                    return response()->json($result);
                 }
+                
+                $admin = SysAdminUser::find($id);
+                if (!$admin) {
+                    $result->msg = "账号不存在";
+                    $result->code =  Constant::ERROR;
+                    return response()->json($result);
+                }
+    
+                $admin->status = $request->post("status");
+                $admin->save();
                 $result->msg = "操作成功";
                 $result->code =  Constant::OK;
             } catch (\Exception $e) {
-                $result->msg = "操作成功";
+                Log::info("禁用账号失败:".$e->getMessage());
+                $result->msg = "操作失败";
+                $result->code =  Constant::ERROR;
             }
         }else{
             $result->msg  = "Invalid Request";
+            $result->code =  Constant::ERROR;
         }
         return response()->json($result);
     }
   
-    
-    /**
-     * 修改资料
-     */
-    public function set_save(Request $request) {
-        $result =new Result();
-        if($request->ajax()) {
-            try {
-                $power  = SysAdminUser::find($request->id);
-                if ( $power->pwd == md5($request->pwd)){
-                    SysAdminUser::find($request->id)->update(['pwd'=>md5($request->newpwd)]);
-                    $result->msg = "操作成功";
-                    $result->code =  Constant::OK;
-                }else{
-                    $result->msg  = "密码错误";
-                }
-            } catch (\Exception $e) {
-                $result->msg = "操作成功";
-            }
-        }else{
-            $result->msg  = "Invalid Request";
-        }
-        return response()->json($result);
-    }
     
     /***
      * @param Request $request
