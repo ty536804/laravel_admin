@@ -8,7 +8,7 @@ class CreateBannerPositionTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * banner 位置
      * @return void
      */
     public function up()

@@ -13,3 +13,18 @@ Route::group(["namespace"=>"Backend","prefix"=>"backend"],function () {
     Route::post("positionEdit","BannerController@positionEdit");//轮播图位置展示编辑
     Route::post("positionSave","BannerController@positionSave");//轮播图位置展示保存
 });
+
+
+Route::group(["namespace"=>"Backend","prefix"=>"backend"],function () {
+    Route::get("show","MessageController@index");//留言列表页面
+    Route::get("detail","MessageController@messageDetail");//留言列表页面
+    Route::post("list","MessageController@messageList");//留言列表ajax
+    Route::post("save","MessageController@messageSave");//提交留言
+});
+
+Route::group(["namespace"=>"Backend","prefix"=>"backend"],function () {
+    Route::get("show","ArticleController@index");//文章列表页面
+    Route::get("detail","ArticleController@articleDetail");//文章页面
+    Route::post("list","ArticleController@articleList");//文章列表ajax
+    Route::post("save","ArticleController@articleSave");//提交文章
+});

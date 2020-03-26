@@ -8,7 +8,7 @@ class CreateBannerTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * banner
      * @return void
      */
     public function up()
