@@ -14,6 +14,7 @@ class BaseMessage extends Model
         'mname', // 姓名
         'area', // 地区
         'tel', // 电话
+        'content', // 留言内容
         'com', // 留言来源页
         'client', // 客户端
         'ip', // ip地址
@@ -21,4 +22,4 @@ class BaseMessage extends Model
         'created_at', // 
         'updated_at', // 
     ];
-}//Created at 2020-03-26 08:36:45
+}//Created at 2020-03-27 02:39:13

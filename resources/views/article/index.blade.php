@@ -10,10 +10,6 @@
     <link href="{{asset('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet">
     <style>
-        .control-label{
-            padding: 0;
-            line-height: 35px;
-        }
         .table>thead>tr>th {
             font-weight: normal;
             color: #171616;
@@ -24,15 +20,6 @@
         table td{
             word-break: break-all;
             word-wrap: break-word;
-        }
-        .bootstrap-select>.dropdown-toggle.bs-placeholder{
-            background: #fff;
-        }
-        .pl0 {
-            padding-left: 0;
-        }
-        .pr0 {
-            padding-right: 0;
         }
     </style>
 @endsection
@@ -76,19 +63,25 @@
                     { "data": "summary"},
                     { "data": "thumb_img"},
                     { "data": "admin"},
-                    { "data": "com"},
                     { "data": "is_show"},
-                    { "data": "hot"},
                     { "data": "hot"}
                 ],
                 "columnDefs": [
+                    {
+                        "targets" :1,
+                        "width":200,
+                    },
+                    {
+                        "targets" :2,
+                        "width":300,
+                    },
                     {
                         "render" : function(data, type, row){
                             if (data == null) {
                                 var str="";
                             }else{
                                 console.log(uploadfile);
-                                var str = '<a href="'+uploadfile+row.imgurl+'" target="_blank" ><img src="'+uploadfile+row.imgurl+'" width="60px"/></a>';
+                                var str = '<a href="'+uploadfile+row.thumb_img+'" target="_blank" ><img src="'+uploadfile+row.thumb_img+'" width="60px"/></a>';
                             }
                             return str;
                         },
@@ -104,16 +97,16 @@
                             }
                             return str;
                         },
-                        "targets" :6,
+                        "targets" :5,
                     },
                     {
                         "render" : function(data, type, row){
                             let str="";
-                            str +='<a class=\"btn btn-sm btn-primary\" href="/backend/detail?id='+row.id+'">编辑</a> ' +
+                            str +='<a class=\"btn btn-sm btn-primary\" href="/backend/article/detail?id='+row.id+'">编辑</a> ' +
                                     "<a class=\"btn btn-sm btn-danger\" onclick='del("+row.id+")'>删除</a>";
                             return str;
                         },
-                        "targets" :8,
+                        "targets" :6,
                     },
                 ]
             });
@@ -165,7 +158,7 @@
                     <div class="col-xs-12" style="margin: 10px 0px;">
                         <div class="col-md-1 ">
                             <div class="btn-group btn-group-sm">
-                                <a  class="btn btn-success" href="/backend/detail">添加</a>
+                                <a  class="btn btn-success" href="/backend/article/detail">添加</a>
                             </div>
                         </div>
                     </div>
@@ -178,7 +171,6 @@
                                 <th>摘要</th>
                                 <th>缩率图</th>
                                 <th>编辑者</th>
-                                <th>上传时间</th>
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>

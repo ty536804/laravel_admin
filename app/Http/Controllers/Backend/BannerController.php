@@ -79,7 +79,6 @@ class BannerController extends Controller
             'info' => $info,
             'cities'=>$cities,
             'position' => $position,
-            'imgurl' => ""
         ];
         return view("banner.detail", $data);
     }

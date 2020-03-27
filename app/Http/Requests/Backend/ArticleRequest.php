@@ -13,7 +13,7 @@ class ArticleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,7 @@ class ArticleRequest extends FormRequest
         return [
             'title' =>'required',
             'summary' => 'required',
-            'thumb_img' => 'required',
+            'thumb_img_info' => 'required',
             'admin' => 'required',
             'com' => 'required',
         ];
@@ -37,7 +37,7 @@ class ArticleRequest extends FormRequest
         return [
             'title.required'=>'标题不能为空',
             'summary.required'=>'摘要不能为空',
-            'thumb_img.required'=>'缩率图不能重复',
+            'thumb_img_info.required'=>'缩率图不能为空',
             'admin.required'=>'编辑人员不能为空',
             'com.required'=>'文章来源不能为空',
         ];

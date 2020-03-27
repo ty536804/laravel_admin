@@ -117,7 +117,7 @@
                     {
                         "render" : function(data, type, row){
                             let str="";
-                            str +='<a class=\"btn btn-sm btn-primary\" href="/backend/detail?id='+row.id+'">编辑</a> ' +
+                            str +='<a class=\"btn btn-sm btn-primary\" href="/backend/banner/detail?id='+row.id+'">编辑</a> ' +
                                     "<a class=\"btn btn-sm btn-danger\" onclick='del("+row.id+")'>删除</a>";
                             return str;
                         },
@@ -173,7 +173,7 @@
                     <div class="col-xs-12" style="margin: 10px 0px;">
                         <div class="col-md-1 ">
                             <div class="btn-group btn-group-sm">
-                                <a  class="btn btn-success" href="/backend/detail">新建</a>
+                                <a  class="btn btn-success" href="/backend/banner/detail">新建</a>
                             </div>
                         </div>
                     </div>

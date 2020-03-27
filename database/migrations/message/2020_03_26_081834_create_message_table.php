@@ -18,9 +18,10 @@ class CreateMessageTable extends Migration
             $table->string("mname",100)->comment("姓名");
             $table->string("area",100)->comment("地区");
             $table->string("tel",20)->comment("电话");
+            $table->text("content")->comment("留言内容");
             $table->string("com")->comment("留言来源页");
             $table->string("client")->comment("客户端");
-            $table->string("ip")->comment("ip地址");
+            $table->string("ip",50)->comment("ip地址");
             $table->integer("channel")->comment("留言板块");
             $table->timestamps();
         });

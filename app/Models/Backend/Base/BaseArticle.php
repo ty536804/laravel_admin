@@ -20,7 +20,8 @@ class BaseArticle extends Model
         'content', // 内容
         'hot', // 是否热点 1是 2否
         'sort', // 优先级 数字越大，排名越前
+        'thumb_img_info', // 缩率图相关信息
         'created_at', // 
         'updated_at', // 
     ];
-}//Created at 2020-03-26 08:36:59
+}//Created at 2020-03-27 02:18:57

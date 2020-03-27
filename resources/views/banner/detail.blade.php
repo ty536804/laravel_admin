@@ -28,8 +28,8 @@
                 radioClass: 'iradio_square-green',
             });
             let uid = '{{$admin_id}}';
-            let file = new upload({ uid:uid,pictype:1001,uploadid:"fileupload",tag:"imgurl",token:'<?php echo e(csrf_token());?>'});
-            file.initUpload('{!! $imgurl !!}','{{asset('storage/uploadfile/').'/'}}') ;
+            let file = new upload({ uid:uid,pictype:1001,uploadid:"fileupload",tag:"img_info",token:'<?php echo e(csrf_token());?>'});
+            file.initUpload('{!! $info->img_info !!}','{{asset('storage/uploadfile/').'/'}}') ;
         });
 
 
@@ -62,7 +62,7 @@
                     if (result.code == "10000") {
                         swal({title:result.msg,type: 'success'},
                                 function () {
-                                    window.location.href="/backend/show";
+                                    window.location.href="/backend/banner/show";
                                 });
                     } else {
                         sweetAlert("操作失败",result.msg,'error');
@@ -124,8 +124,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">*上传banner图片：</label>
                                     <div class="col-md-8">
-                                        <div id="img_info">
-                                            <input type="hidden" id="imgurl" name="imgurl" value="{{$info->imgurl}}"/>
+                                        <div id="thumb_img_info">
+                                            <input type="hidden" id="img_info" name="img_info" value="{{$info->img_info}}"/>
                                             <input id="fileupload" name="fileupload" type="file" multiple>
                                             <input type="hidden" name="_token"  value="{{csrf_token()}}"/>
                                             <span class="help-block text_infor">支持文件格式:xls, xlsx, doc, docx, pdf, jpg, png, jpeg。</span>

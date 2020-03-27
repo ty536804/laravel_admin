@@ -65,59 +65,41 @@
                 "autoWidth": false,
                 "order": [[ 0, "desc" ]],
                 "ajax": {
-                    "url":"{{URL::action('Backend\ArticleController@articleList')}}",
+                    "url":"{{URL::action('Backend\MessageController@messageList')}}",
                     "type":"POST",
                     "dataType":"json",
                     "data":{'_token':'{{ csrf_token()}}'}
                 },
                 "columns": [
                     { "data": "id"},
-                    { "data": "title"},
-                    { "data": "summary"},
-                    { "data": "thumb_img"},
-                    { "data": "admin"},
+                    { "data": "mname"},
+                    { "data": "area"},
+                    { "data": "tel"},
                     { "data": "com"},
-                    { "data": "is_show"},
-                    { "data": "hot"},
+                    { "data": "client"},
+                    { "data": "ip"},
+                    { "data": "channel"},
                     { "data": "hot"}
                 ],
                 "columnDefs": [
                     {
-                        "render" : function(data, type, row){
-                            if (data == null) {
-                                var str="";
-                            }else{
-                                console.log(uploadfile);
-                                var str = '<a href="'+uploadfile+row.imgurl+'" target="_blank" ><img src="'+uploadfile+row.imgurl+'" width="60px"/></a>';
-                            }
-                            return str;
-                        },
-                        "targets" :3,
-                    },
-                    {
-                        "render" : function(data, type, row){
-                            var str="";
-                            if(row.is_show==1){
-                                str+='显示';
-                            }else{
-                                str+='隐藏';
-                            }
-                            return str;
-                        },
-                        "targets" :6,
-                    },
-                    {
-                        "render" : function(data, type, row){
-                            let str="";
-                            str +='<a class=\"btn btn-sm btn-primary\" href="/backend/detail?id='+row.id+'">编辑</a> ' +
-                                    "<a class=\"btn btn-sm btn-danger\" onclick='del("+row.id+")'>删除</a>";
-                            return str;
+                        "render" : function(data, type, row,meta){
+                            return '<button  class="btn btn-default btn-sm" onclick="edit('+meta.row+')">编辑</button  >';
                         },
                         "targets" :8,
                     },
                 ]
             });
             return table;
+        }
+
+
+        function edit() {
+            $('.modal-title').empty().html('查看');
+            let index  = Number(id),
+                data = myTable.rows(index).data()[0];
+            $("#create #content").val(data.content);
+            $("#create").modal("show");
         }
     </script>
 @endsection
@@ -140,12 +122,13 @@
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>标题</th>
-                                <th>摘要</th>
-                                <th>缩率图</th>
-                                <th>编辑者</th>
-                                <th>上传时间</th>
-                                <th>状态</th>
+                                <th>姓名</th>
+                                <th>地区</th>
+                                <th>电话</th>
+                                <th>来源</th>
+                                <th>客户端类型</th>
+                                <th>IP</th>
+                                <th>留言板块</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -155,4 +138,28 @@
             </div><!-- /.col -->
         </div>
     </section>
+{{--    modal--}}
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body row">
+                    <form action="" id="order_data">
+                        <div class="form-group">
+                            <label class="col-sm-2 " for="content">留言内容</label>
+                            <div class="col-sm-10">
+                                <textarea id="content" name="content" class="form-control" rows="16" style="min-width: 90%"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button class="btn btn-default" data-dismiss="modal" id="cancel" type="button">取消
+                        </button>
+                        <button class="btn btn-success" id="button_id" type="button">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

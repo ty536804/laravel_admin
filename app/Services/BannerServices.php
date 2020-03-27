@@ -19,7 +19,6 @@ class BannerServices
      */
     public function bannerSave($data)
     {
-        Log::info(json_encode($data));
         $id = $data['id'] ?? 0;
         $bname = $data['bname'] ?? "";
         if (empty($bname)) {
@@ -36,7 +35,7 @@ class BannerServices
             return $this->error("链接不能为空");
         }
         
-        $imgurl = $data['imgurl'] ?? "";
+        $imgurl = $data['img_info'] ?? "";
         
         if (empty($imgurl)) {
             return $this->error("请上传banner图片");

@@ -21,12 +21,13 @@ class CreateBannerTable extends Migration
             $table->string('bname',50)->comment("名称");
             $table->integer("bposition")->comment("位置 1 首页");
             $table->string("imgurl",150)->comment("图片地址");
-            $table->string('target_link',150)->nullable(true)->default("")->comment("跳转链接");
+            $table->string('target_link',150)->default("#")->comment("跳转链接");
             $table->string('begin_time',50)->nullable(true)->comment("显示开始时间");
             $table->string('end_time',50)->nullable(true)->comment("显示结束时间");
             $table->integer('is_show')->default(1)->comment("状态 1显示 2隐藏");
             $table->string('image_size')->nullable(true)->comment("图片大小 长*高*宽");
             $table->string('info')->nullable(true)->default("")->comment("备注");
+            $table->text('img_info')->comment("图片详细");
             $table->timestamps();
         });
     }

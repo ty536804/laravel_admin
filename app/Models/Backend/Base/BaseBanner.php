@@ -23,7 +23,8 @@ class BaseBanner extends Model
         'is_show', // 状态 1显示 2隐藏
         'image_size', // 图片大小 长*高*宽
         'info', // 备注
+        'img_info', // 图片详细
         'created_at', // 
         'updated_at', // 
     ];
-}//Created at 2020-03-25 06:31:41
+}//Created at 2020-03-27 02:19:18
