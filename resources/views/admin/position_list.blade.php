@@ -81,6 +81,7 @@
                     }
                 });
                 $('#info_form #id').val(_dept.id);
+                $("#edit_power #id").val(_dept.id);
                 $('#power_id').val(_dept.powerid);
                 $('#desc').val(_dept.desc);
                 $('#position_name').val(_dept.position_name);
@@ -171,12 +172,12 @@
 
             //权限保存
             $('#save_power').on('click',function(){
-                var id  = $("#id").val();
-                var powerid = $("#power_id").val();
+                let id  = $("#edit_power #id").val();
+                let powerid = $("#power_id").val();
                 $.ajax({
                     type:"POST",
                     dataType:"json",
-                    url:"{{URL::action('Admin\PositionController@update')}}",
+                    url:"{{URL::action('Admin\PositionController@positionAdd')}}",
                     data:{"id":id,"powerid":powerid,"_token":'{{ csrf_token() }}'},
                     success: function (result) {
                         if (result.code == "10000") {
@@ -199,6 +200,9 @@
 
         });
 
+        /**
+         * 职位权限 点击事件
+         */
         function setPowerId(){
             var powerid="|";
             $("#power_id").val(powerid);
@@ -208,7 +212,7 @@
                 }
             });
             $("#power_id").val(powerid);
-            console.log("选中的权限"+$("#power_id").val());
+            // console.log("选中的权限"+$("#power_id").val());
         }
 
         /**
