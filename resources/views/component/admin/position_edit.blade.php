@@ -1,17 +1,19 @@
 <div class="chart tab-pane active" id="dept_edit">
     <div class="box-body">
         <form class="form-horizontal m-t" id="info_form">
+            {{csrf_field()}}
             <div class="form-group">
                 <label class="col-sm-3 control-label">职位名称：</label>
                 <div class="col-sm-8">
-                    <input id="" name="position_name"  type="text" class="form-control" value="">
+                    <input id="position_name" name="position_name"  type="text" class="form-control" value="">
                 </div>
             </div>
+            <input type="hidden" id="id" name="id" value="">
             <div class="form-group">
                 <label class="col-sm-3 control-label">归属部门：</label>
                 <div class="col-sm-8">
                     <select class="form-control" name="department_id" id="department_id">
-                        <option value="">--请选择--</option>
+                        <option value="0">--请选择--</option>
                         @foreach($all as $k=>$v)
                             <option  value="{{$v->id}}">{{$v->dp_name}}</option>
                             @endforeach
@@ -19,7 +21,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">职位说明：</label>
+                <label class="col-sm-3 control-label">职位描述：</label>
                 <div class="col-sm-8">
                     <textarea id="desc" name="desc" class="form-control" required="" aria-required="true"></textarea>
                 </div>
@@ -28,7 +30,7 @@
                 <label class="col-sm-3 control-label">状态：</label>
                 <div class="col-sm-8 ">
                     <label>
-                        <input type="radio" value="1" name="status" id="status">正常</label>
+                        <input type="radio" value="1" name="status" id="status" checked >正常</label>
                     <label>
                         <input type="radio" value="0" name="status" id="status"> 禁用</label>
                 </div>

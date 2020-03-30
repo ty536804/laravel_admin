@@ -44,6 +44,22 @@
         });
 
         $(document).on('click','#button_id',function () {
+            if ($.trim($("#title").val()) == "") {
+                sweetAlert("操作失败","标题不能为空",'error');
+            }
+
+            if ($.trim($("#summary").val()) == "") {
+                sweetAlert("操作失败","摘要不能为空",'error');
+            }
+
+            if ($.trim($("#admin").val()) == "") {
+                sweetAlert("操作失败","编辑者不能为空",'error');
+            }
+
+            if ($.trim($("#content").val()) == "") {
+                sweetAlert("操作失败","内容不能为空",'error');
+            }
+
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -86,7 +102,6 @@
                                     <input id="id" name="id" type="hidden" value="{{$info->id}}">
                                     <label class="col-sm-3 control-label">标题：</label>
                                     <div class="col-sm-8">
-
                                         <input id="title" name="title"  type="text" class="form-control" value="{{$info->title}}">
                                     </div>
                                 </div>

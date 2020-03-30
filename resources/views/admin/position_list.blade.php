@@ -80,7 +80,7 @@
                         $("form#edit_power input[data-id='"+value+"']").prop("checked",true);
                     }
                 });
-                $('#id').val(_dept.id);
+                $('#info_form #id').val(_dept.id);
                 $('#power_id').val(_dept.powerid);
                 $('#desc').val(_dept.desc);
                 $('#position_name').val(_dept.position_name);
@@ -122,23 +122,41 @@
                 setPowerId();
             });
 
+            /**
+             * 职位信息保存
+             */
             $('#save_info').on('click',function(){
-                var id  = $("#id").val();
-                var position_name = $("#position_name").val();
-                var department_id = $("#department_id").val();
-                var desc = $("#desc").val();
-                var status = $("input[name='status']:checked").val();
+                let position_name = $.trim($("#info_form #position_name").val());
+                let department_id = $.trim($("#department_id").val());
+                let desc = $("#desc").val();
+                if (position_name =="") {
+                    swal("操作失败","职位名称不能为空","error");
+                    return false;
+                }
+
+                if (department_id =="" || department_id<1) {
+                    swal("操作失败","选择归属部门","error");
+                    return false;
+                }
+
+                if (desc =="") {
+                    swal("操作失败","职位描述不能为空","error");
+                    return false;
+                }
+
                 $.ajax({
                     type:"POST",
                     dataType:"json",
                     url:"{{URL::action('Admin\PositionController@update')}}",
-                    data:{"id":id,"position_name":position_name,"department_id":department_id,"desc":desc,"status":status,"_token":'{{ csrf_token()}}'},
+                    data:$("#info_form").serialize(),
                     success: function (result) {
                         if (result.code == "10000") {
-//                        _all[id].powerid = powerid;
-                            swal({title:result.msg,type: 'success'});
+                            swal({title:result.msg,type: 'success'},
+                                function () {
+                                    window.location.reload();
+                                });
                         } else {
-                            swal(result.msg,"",'error');
+                            swal("操作失败",result.msg,'error');
                         }
                     },
                     error: function (result) {
@@ -193,6 +211,17 @@
             console.log("选中的权限"+$("#power_id").val());
         }
 
+        /**
+         * 新增职位
+         */
+        $('.position').on('click',function () {
+            $('.leftNav_con a').removeClass("nav_active");
+            $("#info_form #desc").val("");
+            $("#info_form #department_id").val(0);
+            $("#info_form #position_name").val("");
+            $('#info_form #id').val("");
+        });
+
     </script>
 @endsection
 @section('content')
@@ -204,7 +233,7 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <div id="leftNav">
-                                    <label>职位</label>
+                                    <label class="position">职位</label>
                                     <div class="leftNav_con">
                                         @foreach($position as $v)
                                         <a href="javascript:void(0);" class="item" data-id={{$v->id}}>{{$v->position_name}}</a>

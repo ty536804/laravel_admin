@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
     //职位
     Route::group(['prefix' => 'posi'], function () {
         Route::get('view','PositionController@view');
-        Route::post('update','PositionController@update');
+        Route::post('update','PositionController@update');//职位添加/修改
         Route::get('list1','PositionController@list1');
         Route::get('list','PositionController@list');
         Route::post('delete','PositionController@delete');

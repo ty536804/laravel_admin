@@ -14,7 +14,7 @@ class AdminPositionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -50,7 +50,7 @@ class AdminPositionRequest extends FormRequest
             'position_name.required'=>'职位名称不能为空',
             'position_name.unique'=>'职位名称不能重复',
             'department_id.required'=>'归属部门不能为空',
-            'desc.required'=>'职位说明不能为空',
+            'desc.required'=>'职位描述不能为空',
         ];
     }
 }

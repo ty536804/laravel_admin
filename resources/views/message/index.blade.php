@@ -84,7 +84,7 @@
                 "columnDefs": [
                     {
                         "render" : function(data, type, row,meta){
-                            return '<button  class="btn btn-default btn-sm" onclick="edit('+meta.row+')">编辑</button  >';
+                            return '<button  class="btn btn-default btn-sm" onclick="edit('+meta.row+')">查看</button  >';
                         },
                         "targets" :8,
                     },

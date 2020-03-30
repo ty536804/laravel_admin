@@ -32,19 +32,6 @@
             file.initUpload('{!! $info->img_info !!}','{{asset('storage/uploadfile/').'/'}}') ;
         });
 
-
-        laydate.render({
-            type:"datetime",
-            elem: '#begin_time',
-            theme: '#CBB3B4 ',
-            min:1,
-        });
-        laydate.render({
-            type:"datetime",
-            elem: '#end_time',
-            theme: '#CBB3B4 ',
-            min:1,
-        });
         $(".selectpicker").selectpicker({
             width : 300,
             actionsBox:true, //在下拉选项添加选中所有和取消选中的按钮

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminPositionRequest;
 use App\Models\Admin\SysAdminDepartment;
+use App\Models\Admin\SysAdminPosition;
 use App\Models\Admin\SysAdminPower;
 use App\Models\Base\BaseSysAdminDepartment;
 use App\Models\Base\BaseSysAdminPosition;
 use App\Services\AdminUser;
+use App\Tools\ApiResult;
 use App\Tools\Constant;
 use App\Tools\Result;
 use Illuminate\Http\Request;
@@ -17,6 +19,8 @@ use Yajra\DataTables\Facades\DataTables;
 class PositionController extends Controller
 {
     //
+    use ApiResult;
+    
     public $adminUser;
     function __construct(AdminUser $user)
     {
@@ -49,6 +53,12 @@ class PositionController extends Controller
         return view("admin.position_view",$data);
     }
     
+    /**
+     * @description 职位列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-30
+     */
     public function list(){
         $position = BaseSysAdminPosition::all()->keyBy('id');
         $department = SysAdminDepartment::where('parent_id',0)->with('children')->get();
@@ -101,94 +111,36 @@ class PositionController extends Controller
     
     /**
      * @description 添加职位
-     * @param Request $request
+     * @param AdminPositionRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-25
+     * date: 2020-03-30
      */
-    public function update(Request $request){
+    public function update(AdminPositionRequest $request){
         $result =new Result();
         if($request->ajax()) {
+            if (SysAdminPosition::where("position_name", $request->post("position_name"))->count()>1) {
+                return $this->error("职位名称不允许重复");
+            }
             try {
-                $id = $request->get('id');
-                if (!empty($request->powerid) && empty($id)){
-                    if (empty($request->position_name)){
-                        $result->code=Constant::ERROR;
-                        $result->msg="请选择职位";
-                        return response()->json($result);
-                    }
-                }
-                $position= new BaseSysAdminPosition();
-                if(!empty($id)){
-                    if (!empty($request->position_name)){
-                        $po_name_arr = $position->where('id','!=',$id)->pluck('position_name')->toArray();
-                        if (in_array($request->position_name,$po_name_arr)){
-                            $result->msg="职位名称不能重复";
-                            return response()->json($result);
-                        }
-                        if (empty($request->department_id)){
-                            $result->code=Constant::ERROR;
-                            $result->msg="归属部门不能为空";
-                            return response()->json($result);
-                        }
-                        if (empty($request->desc)){
-                            $result->code=Constant::ERROR;
-                            $result->msg="职位说明不能为空";
-                            return response()->json($result);
-                        }
-                    }else{
-                        if (empty($request->powerid)){
-                            $result->code=Constant::ERROR;
-                            $result->msg="请正确操作";
-                            return response()->json($result);
-                        }
-                    }
-                    $dept  = BaseSysAdminPosition::find($request->id);
-                    if(!empty($dept)){
-                        $dept->fill($request->all());
-                        $dept->save();
-                        $result->code=Constant::OK;
-                        $result->msg="操作成功";
-                    }
-                }else{
-                    if (!empty($request->position_name)){
-                        $po_name_arr = $position->pluck('position_name')->toArray();
-                        if (in_array($request->position_name,$po_name_arr)){
-                            $result->msg="职位名称不能重复";
-                            return response()->json($result);
-                        }
-                        if (empty($request->department_id)){
-                            $result->code=Constant::ERROR;
-                            $result->msg="归属部门不能为空";
-                            return response()->json($result);
-                        }
-                        if (empty($request->desc)){
-                            $result->code=Constant::ERROR;
-                            $result->msg="职位说明不能为空";
-                            return response()->json($result);
-                        }
-                    }else{
-                        if (empty($request->powerid)){
-                            $result->code=Constant::ERROR;
-                            $result->msg="请正确操作";
-                            return response()->json($result);
-                        }
-                    }
-                    if (empty($request->position_name) && empty($request->department_id) && empty($request->desc) && empty($request->powerid)){
-                        $result->code=Constant::ERROR;
-                        $result->msg="请正确操作";
-                        return response()->json($result);
-                    }
+                $id = $request->get('id',0);
+                if ($id < 1) {
                     $dept = new BaseSysAdminPosition();
-                    $dept->fill($request->all());
-                    $dept->save();
-                    $result->code=Constant::OK;
-                    $result->msg="操作成功";
+                } else {
+                    $dept = SysAdminPosition::find($id);
                 }
+                $request["powerid"]= "|";
+                $dept->fill($request->all());
+                $dept->save();
+                $result->code=Constant::OK;
+                $result->msg="操作成功";
             } catch (\Exception $e) {
                 $result->msg = "操作失败";
+                Log::info("职位添加失败",[$e->getMessage()]);
+                $result->code=Constant::ERROR;
             }
         }else{
+            $result->code=Constant::ERROR;
             $result->msg  = "Invalid Request";
         }
         return response()->json($result);
