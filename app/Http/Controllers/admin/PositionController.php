@@ -146,6 +146,40 @@ class PositionController extends Controller
         return response()->json($result);
     }
     
+    /**
+     * @description 职位权限
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @auther caoxiaobin
+     * date: 2020-03-30
+     */
+    public function positionAdd(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->post("id", 0);
+            if ($id < 1) {
+                return $this->error("选择职位");
+            }
+            $powerid = $request->post("powerid","");
+            if (empty($powerid)) {
+                return $this->error("选择职位");
+            }
+            
+            $dept = SysAdminPosition::find($id);
+            if (!$dept) {
+                return $this->error("当前职位已删除，刷新页面");
+            }
+            $dept->powerid = $powerid;
+            if ($dept->save()) {
+                return $this->success("操作成功");
+            } else {
+                return $this->error("操作失败");
+            }
+        } else {
+            return $this->error("非法操作");
+        }
+    }
+    
     public function delete(Request $request){
         $result =new Result();
         if($request->ajax()) {

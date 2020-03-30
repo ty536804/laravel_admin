@@ -49,8 +49,16 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'posi'], function () {
         Route::get('view','PositionController@view');
         Route::post('update','PositionController@update');//职位添加/修改
+        Route::get('list1','PositionController@list1');
+        Route::get('list','PositionController@list');
+        Route::post('listdata','PositionController@getListData');
         Route::post('save','PositionController@save');
         Route::post('add','PositionController@positionAdd');
+    });
+    //管理员资料管理
+    Route::group(['prefix' => 'self'], function () {
+        Route::get('set','UserController@set');
+        Route::post('save','UserController@set_save');
     });
 });
 //首页管理
