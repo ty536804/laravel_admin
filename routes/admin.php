@@ -60,6 +60,11 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
         Route::get('set','UserController@set');
         Route::post('save','UserController@set_save');
     });
+    
+    Route::group(['prefix' => 'site'], function () {
+        Route::get('show','SiteController@show');
+        Route::post('save','SiteController@siteSave');
+    });
 });
 //首页管理
 Route::group(['middleware'=>'adminAuth','namespace' => 'Admin','prefix' => 'admin'], function (){

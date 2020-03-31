@@ -57,7 +57,17 @@
                     if (result.code == "10000") {
                         swal({title:result.msg,type: 'success'},
                         function () {
-                            window.location.href="/backend/essay/show";
+                            let pid = $("#addform #banner_position_id").val();
+                            let _url = "";
+                            switch (Number(pid)) {
+                                case 1:
+                                    _url = "/backend/essay/show";
+                                    break;
+                                case 2:
+                                    _url = "/backend/essay/magic";
+                                    break;
+                            }
+                            window.location.href=_url;
                         });
                     } else {
                         sweetAlert("操作失败",result.msg,'error');

@@ -26,7 +26,6 @@ class EssayController extends Controller
     
     public function index()
     {
-        
         return view("essay.index");
     }
     
@@ -135,13 +134,84 @@ class EssayController extends Controller
     }
     
     /**
-     * @description 关于模式
+     * @description 关于魔数
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
      * date: 2020-03-31
      */
-    public function aboutMagic()
-    {
+    public function aboutMagic() {
         return view("essay.magic");
+    }
+    
+    /**
+     * @description 课程体系
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-31
+     */
+    public function course() {
+        return view("essay.course");
+    }
+    
+    /**
+     * @description 教学
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-31
+     */
+    public function research()
+    {
+        return view("essay.Research");
+    }
+    
+    /**
+     * @description AI学习平台
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-31
+     */
+    public function learn()
+    {
+        return view("essay.learn");
+    }
+    
+    /**
+     * @description OMO模式
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-31
+     */
+    public function omoMode(){
+        return view("essay.omo_mode");
+    }
+    
+    /**
+     * @description 全国校区
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-31
+     */
+    public function all( ) {
+        return view("essay.all");
+    }
+    
+    /**
+     * @description 加盟授权
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-31
+     */
+    public function join(){
+        return view("essay.join");
+    }
+    
+    /**
+     * @description APP下载
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-31
+     */
+    public function appDown(){
+        return view("essay.down");
     }
 }

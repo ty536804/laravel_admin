@@ -37,6 +37,7 @@ Route::group(["namespace"=>"Backend","prefix"=>"backend"],function () {
         Route::get("detail","EssayController@essayDetail");//文章页面
         Route::post("save","EssayController@essayAdd");//文章列表ajax
         Route::post("list","EssayController@easyList");//文章列表ajax
-        Route::get("del","EssayController@essayDel");//提交文章
+        Route::get("del","EssayController@essayDel");//删除
+        Route::get("magic","EssayController@aboutMagic");//文章列表页面
     });
 });
