@@ -8,9 +8,9 @@ if(!empty($userinfo)){
     <!-- Logo -->
     <a href="/admin/index" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>E</b>DX</span>
+        <span class="logo-mini"><b>易学教育</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>EDX</span>
+        <span class="logo-lg">易学教育</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

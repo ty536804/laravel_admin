@@ -31,4 +31,12 @@ Route::group(["namespace"=>"Backend","prefix"=>"backend"],function () {
         Route::post("list","ArticleController@articleList");//文章列表ajax
         Route::post("save","ArticleController@articleSave");//提交文章
     });
+    
+    Route::group(["prefix" => "essay"], function (){
+        Route::get("show","EssayController@index");//文章列表页面
+        Route::get("detail","EssayController@essayDetail");//文章页面
+        Route::post("save","EssayController@essayAdd");//文章列表ajax
+        Route::post("list","EssayController@easyList");//文章列表ajax
+        Route::get("del","EssayController@essayDel");//提交文章
+    });
 });

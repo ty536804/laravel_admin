@@ -93,4 +93,25 @@ class ArticleController extends Controller
         $data['admin_id'] = $admin_id;
         return view("article.detail", $data);
     }
+    
+    /**
+     * @description 首页
+     * @auther caoxiaobin
+     * date: 2020-03-30
+     */
+    public function articleShow()
+    {
+        return view("article.show");
+    }
+    
+    /**
+     * @description 首页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther caoxiaobin
+     * date: 2020-03-30
+     */
+    public function articleAdd()
+    {
+        return view("article.show");
+    }
 }
