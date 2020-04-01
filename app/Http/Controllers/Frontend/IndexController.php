@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ArticleServices;
 use App\Services\BannerServices;
 use App\Services\FrontendServices;
+use App\Services\SiteServices;
 use Illuminate\Support\Facades\Input;
 
 class IndexController extends Controller
@@ -30,9 +31,11 @@ class IndexController extends Controller
      */
     public function index()
     {
+        $site = new SiteServices();
         $data["banner"] = $this->frontend->banner(1);
         $data["essay"] = $this->frontend->essay(1);
         $data['menuList'] = $this->position->menu();
+        $data["site"] = $site->siteInfo();
         return view("welcome", $data);
     }
     
