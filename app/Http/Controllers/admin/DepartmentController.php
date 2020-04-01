@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 
-;
-
 class DepartmentController extends Controller
 {
     //
@@ -187,7 +185,6 @@ class DepartmentController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @description
-     * @auther al
      */
     public function delete(Request $request) {
         $result =new Result();

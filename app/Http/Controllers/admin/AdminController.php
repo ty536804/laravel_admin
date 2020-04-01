@@ -45,7 +45,6 @@ class AdminController extends Controller{
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @description 退出
-     * @auther YaoYao
      */
     public function login(Request $request) {
         $result =new Result();
@@ -87,24 +86,11 @@ class AdminController extends Controller{
         $this->adminUser->forget();
         return view("admin.login");
     }
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @description 账号设置
-     * @auther YaoYao
-     */
-    public function getSet(){
-        $account = BaseSysAdminUser::find($this->uid);
-        $data['info'] =  $account;
-        $data['img'] =  $this->fb->buildFileDataByUrl($account->img);
-        $data['msg'] = '';
-        return view('admin.set',$data);
-    }
     
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @description 更新资料
-     * @auther YaoYao
      */
     public function anyUpdate(Request $request){
         $result =new Result();
@@ -146,7 +132,6 @@ class AdminController extends Controller{
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @description 登陆成功主页
-     * @auther YaoYao
      */
     public function getIndex(){
         Session::forget("ACTIVE_MAINMENU");
@@ -162,26 +147,5 @@ class AdminController extends Controller{
     }
     public function getWelcome(){
         return view('admin.welcome');
-    }
-    
-    /**
-     * 重设密码
-     * 输入手机号 和旧密码  新密码 重新设置密码
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @description 暂时无需实现
-     */
-    public function getResetPwd(){
-        return  view('admin.resetpwd');
-    }
-    
-    /**
-     * 忘记密码
-     * 输入手机号 和验证码  新密码 重新设置密码
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @description 暂时无需实现
-     * @auther YaoYao
-     */
-    public function getForgetPwd(){
-        return view('admin.forget');
     }
 }
