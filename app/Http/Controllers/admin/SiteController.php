@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SiteRequest;
 use App\Models\Admin\Site;
 use App\Tools\ApiResult;
+use App\Tools\Constant;
 use Illuminate\Support\Facades\Cache;
 
 class SiteController extends Controller
@@ -58,7 +59,7 @@ class SiteController extends Controller
      * date: 2020-03-31
      */
     public function siteInfo() {
-        return Cache::remember("site_info",24*3600*31, function () {
+        return Cache::remember("site_info",Constant::VALID_TIME, function () {
             return Site::first();
         });
     }

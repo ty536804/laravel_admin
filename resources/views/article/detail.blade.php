@@ -46,18 +46,27 @@
         $(document).on('click','#button_id',function () {
             if ($.trim($("#title").val()) == "") {
                 sweetAlert("操作失败","标题不能为空",'error');
+                return false;
             }
 
             if ($.trim($("#summary").val()) == "") {
                 sweetAlert("操作失败","摘要不能为空",'error');
+                return false;
             }
 
             if ($.trim($("#admin").val()) == "") {
                 sweetAlert("操作失败","编辑者不能为空",'error');
+                return false;
             }
 
             if ($.trim($("#content").val()) == "") {
                 sweetAlert("操作失败","内容不能为空",'error');
+                return false;
+            }
+
+            if ($.trim($("#thumb_img_info").val()) == "") {
+                sweetAlert("操作失败","请上传图片",'error');
+                return false;
             }
 
             $.ajax({

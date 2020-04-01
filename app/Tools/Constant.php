@@ -12,4 +12,7 @@ class Constant
     const ADMIN_SESSION_ID = "Admin_Session_ID";
     const SESSION_MENU = 'SessionMenu';
     const SERVICE_CATEGORIES='service_categories';
+    
+    const PAGE_SIZE = 10;//每页显示数量
+    const VALID_TIME = 86400*30;//有效时间
 }

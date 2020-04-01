@@ -4,17 +4,22 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\ArticleRequest;
 use App\Models\Backend\Article;
-use App\Services\AdminUser;
+use App\Services\ArticleServices;
 use App\Tools\ApiResult;
-use Illuminate\Http\Request;
+use App\Tools\Constant;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class ArticleController extends Controller
 {
     //
     use ApiResult;
+    protected $article;
+    
+    public function __construct(ArticleServices $article)
+    {
+        $this->article = $article;
+    }
     
     /**
      * @description 文章首页
@@ -22,7 +27,8 @@ class ArticleController extends Controller
      * @auther caoxiaobin
      * date: 2020-03-26
      */
-    public function show() {
+    public function show()
+    {
         return view("article.index");
     }
     
@@ -49,24 +55,7 @@ class ArticleController extends Controller
     public function articleSave(ArticleRequest $request)
     {
         if ($request->ajax()) {
-            $id= $request->post("id",0);
-            if ($id < 1) {
-                $article = new Article();
-            } else {
-                $article = Article::find($id);
-            }
-            $thumb_img = $request->post("thumb_img_info", "");
-            if (!empty($thumb_img)) {
-                $picInfo = json_decode($thumb_img,true);
-                $picInfo = reset($picInfo);
-                $request['thumb_img'] = $picInfo['m_url'];
-            }
-            $article->fill($request->all());
-            if ($article->save()) {
-                return $this->success("操作成功");
-            } else {
-                return $this->error("操作失败");
-            }
+            return $this->article->articleSave($request->all());
         }
         return $this->error("操作失败");
     }
@@ -78,20 +67,11 @@ class ArticleController extends Controller
      * date: 2020-03-26
      */
     public function articleDetail() {
-        $id = Input::get("id");
-        if ($id >=1) {
-            $article = Article::find($id);
-            if (!$article) {
-                return back()->withErrors("详情页面不存在");
-            }
-        } else {
-            $article = new Article();
+        $result = $this->article->articleDetail(Input::get("id"));
+        if ($result->code == Constant::ERROR) {
+            return back()->withErrors("内容不存在");
         }
-        $admin = new AdminUser();
-        $admin_id = $admin->getId();
-        $data['info'] = $article;
-        $data['admin_id'] = $admin_id;
-        return view("article.detail", $data);
+        return view("article.detail", $result->data);
     }
     
     /**

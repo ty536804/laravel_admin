@@ -1,20 +1,25 @@
 <?php
-
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\MessageRequest;
 use App\Models\Backend\Message;
+use App\Services\MessageServices;
 use App\Tools\ApiResult;
-use Illuminate\Support\Facades\Input;
 use Yajra\DataTables\Facades\DataTables;
 
 class MessageController extends Controller
 {
     //
     use ApiResult;
+    protected $message;
     
-    public function show(){
+    public function __construct(MessageServices $message)
+    {
+        $this->message = $message;
+    }
+    
+    public function show() {
         return view("message.index");
     }
     
@@ -41,34 +46,8 @@ class MessageController extends Controller
      */
     public function messageSave(MessageRequest $request) {
         if ($request->ajax()) {
-            $data = $request->all();
-            $message = new Message();
-            $data['ip'] = $request->getClientIp();
-            $message->fill($data);
-            if ($message->save()) {
-                return $this->success("留言成功");
-            } else {
-                return $this->error("留言失败");
-            }
-        } else {
-            return $this->error("操作失败");
+            return $this->message->messageSave($request->all());
         }
-    }
-    
-    /**
-     * @description 留言详情页
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     * @auther caoxiaobin
-     * date: 2020-03-26
-     */
-    public function messageDetail() {
-        $id = Input::get("id");
-        if ($id < 1) {
-            $article = Message::find($id);
-            if (!$article) {
-                return back()->withErrors("详情页面不存在");
-            }
-        }
-        return view("message.detail");
+        return $this->error("操作失败");
     }
 }

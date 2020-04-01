@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', "Frontend\IndexController@index", function () {
     return view('welcome');
+});
+
+Route::group(["namespace"=>"Frontend","prefix"=>"frontend"], function () {
+    Route::get("index","IndexController@index");//首页
+    Route::get("about","IndexController@about");//关于
+    Route::get("essay","IndexController@essay");//课程体系
+    Route::get("learn","IndexController@learn");//教研教学
+    Route::get("study","IndexController@study");//AI学习平台
+    Route::get("omoMode","IndexController@omoMode");//OMO模式
+    Route::get("school","IndexController@school");//全国校区
+    Route::get("list","IndexController@list");//魔数动态
+    Route::get("detail","IndexController@detail");//魔数动态详情
 });

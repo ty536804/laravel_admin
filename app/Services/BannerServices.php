@@ -1,21 +1,55 @@
 <?php
 namespace App\Services;
 
+use App\Models\Admin\SysAreacode;
 use App\Models\Backend\Banner;
 use App\Models\Backend\BannerPosition;
 use App\Tools\ApiResult;
-use Illuminate\Support\Facades\Log;
+use App\Tools\Constant;
+use App\Tools\Result;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class BannerServices
 {
     use ApiResult;
     
+    protected $result;
+    protected $admin;
+    public function __construct(AdminUser $admin)
+    {
+        $this->result = new Result();
+        $this->admin = $admin;
+    }
+    
     /**
-     * @description 编辑banner
+     * @description 删除banner
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-25
+     * date: 2020-04-01
+     */
+    public function bannerDel($id)
+    {
+        if ($id < 1) {
+            return $this->error("操作失败");
+        }
+        $banner = $this->getOneBanner($id);
+        if (!$banner) {
+            return $this->error("操作失败");
+        }
+    
+        DB::table("banner")->where("id","=",$id)->delete();
+        Cache::forget("banner_list{$banner->bposition}");
+        return $this->success("操作成功");
+    }
+    
+    /**
+     * @description 编辑banner
+     * @param $data
+     * @return \Illuminate\Http\JsonResponse
+     * @auther caoxiaobin
+     * date: 2020-03-31
      */
     public function bannerSave($data)
     {
@@ -48,11 +82,12 @@ class BannerServices
         if ($id < 1) {
             $banner = new Banner();
         } else {
-            $banner= Banner::find($id);
+            $banner= $this->getOneBanner($id);
         }
         
         $banner->fill($data);
         if ($banner->save()) {
+            Cache::forget("banner_list{$data['bposition']}");
             return $this->success("操作成功");
         }
         return $this->error("操作失败");
@@ -91,5 +126,54 @@ class BannerServices
             return $this->success("操作成功");
         }
         return $this->error("操作失败");
+    }
+    
+    /**
+     * @description 详情
+     * @param $id
+     * @return Result
+     * @auther caoxiaobin
+     * date: 2020-04-01
+     */
+    public function bannerDetail($id)
+    {
+        if ($id < 1) {
+            $banner = new Banner();
+        } else {
+            $banner = $this->getOneBanner($id);
+            if (!$banner) {
+                $this->result->code = Constant::ERROR;
+                $this->result->msg = "操作失败";
+                return $this->result;
+            }
+        }
+    
+        $admin_id = $this->admin->getId();
+        
+        $areaCode = new SysAreacode();
+        $cities = $areaCode->province();
+        $position = BannerPosition::where('is_show',1)->get();
+        $data = [
+            'admin_id' => $admin_id,
+            'info' => $banner,
+            'cities'=>$cities,
+            'position' => $position,
+        ];
+        $this->result->code = Constant::OK;
+        $this->result->msg = "操作成功";
+        $this->result->data = $data;
+        return $this->result;
+    }
+    
+    /**
+     * @description 获取单个banner
+     * @param $id
+     * @return mixed
+     * @auther caoxiaobin
+     * date: 2020-03-31
+     */
+    public function getOneBanner($id)
+    {
+        return Banner::find($id);
     }
 }

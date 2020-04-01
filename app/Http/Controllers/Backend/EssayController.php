@@ -2,11 +2,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Backend\BannerPosition;
 use App\Models\Backend\Essay;
-use App\Services\AdminUser;
 use App\Services\BannerServices;
+use App\Services\EssayServices;
 use App\Tools\ApiResult;
+use App\Tools\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,12 +16,12 @@ class EssayController extends Controller
     //
     use ApiResult;
     protected $banner;
-    protected $admin;
+    protected $essay;
     
-    public function __construct(BannerServices $banner,AdminUser $admin)
+    public function __construct(BannerServices $banner,EssayServices $essay)
     {
         $this->banner = $banner;
-        $this->admin = $admin;
+        $this->essay = $essay;
     }
     
     public function index()
@@ -36,22 +36,11 @@ class EssayController extends Controller
      * date: 2020-03-30
      */
     public function essayDetail() {
-        $id = Input::get("id");
-        if ($id <1) {
-            $info = new Essay();
-        } else {
-            $info = Essay::find($id);
-            if (!$info) {
-                return back()->withErrors(['内容不存在']);
-            }
+        $result = $this->essay->essayDetail(Input::get("id"));
+        if ($result->code == Constant::ERROR) {
+            return back()->withErrors(["内容不存在"]);
         }
-        $position = BannerPosition::where('is_show',1)->get();
-        $data = [
-            'admin_id' => $admin_id = $this->admin->getId(),
-            'info' => $info,
-            'position' => $position,
-        ];
-        return view("essay.detail", $data);
+        return view("essay.detail", $result->data);
     }
     
     /**
@@ -63,30 +52,7 @@ class EssayController extends Controller
      */
     public function essayAdd(Request $request) {
         if ($request->ajax()) {
-            $id = $request->post("id",0);
-            if ($id < 1) {
-                $essay = new Essay();
-            } else {
-                $essay = Essay::find($id);
-                if (!$essay) {
-                    return $this->error("已删除，不能编辑");
-                }
-            }
-            $picList = [];
-            $data = $request->all();
-            if (!empty($data['essay_img_info'])) {
-                $picInfo = json_decode($request->post("essay_img_info"),true);
-                foreach ($picInfo as $pic) {
-                    array_push($picList, $pic['m_url']);
-                }
-                $data['essay_img'] = implode(",",$picList);
-            }
-            $essay->fill($data);
-            if ($essay->save()) {
-                return $this->success("操作成功");
-            } else {
-                return $this->error("操作失败");
-            }
+            return $this->essay->essaySave($request->all());
         }
         return $this->error("操作失败");
     }
@@ -113,21 +79,8 @@ class EssayController extends Controller
      * date: 2020-03-31
      */
     public function essayDel(Request $request) {
-        if ($request->get("id")) {
-            $id = $request->get("id", 0);
-            if ($id < 1) {
-                return $this->error("操作失败");
-            }
-            $essay = Essay::find($id);
-            if (!$essay) {
-                return $this->error("不存在当前文章");
-            }
-            $essay->essay_status = 0;
-            if ($essay->save()) {
-                return $this->success("操作成功");
-            } else {
-                return $this->error("操作失败");
-            }
+        if ($request->ajax()) {
+            return $this->essay->essayDel($request->get("id", 0));
         } else {
             return $this->error("操作失败");
         }
