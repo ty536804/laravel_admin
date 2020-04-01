@@ -69,17 +69,10 @@
                 <div class="title m-b-md">
                     {{ config('app.name', '易学教育') }}
                 </div>
-
                 <div class="links">
-                    <a href="/">首页</a>
-                    <a href="https://laracasts.com">关于魔数</a>
-                    <a href="https://laravel-news.com">课程体系</a>
-                    <a href="https://blog.laravel.com">教研教学</a>
-                    <a href="https://nova.laravel.com">AI学习平台</a>
-                    <a href="https://forge.laravel.com">OMO模式</a>
-                    <a href="https://vapor.laravel.com">全国校区</a>
-                    <a href="https://github.com/laravel/laravel">加盟授权</a>
-                    <a href="https://github.com/laravel/laravel">APP下载</a>
+                    @foreach($menuList as $menu)
+                        <a href="{{$menu->base_url}}">{{$menu->position_name}}</a>
+                    @endforeach
                 </div>
             </div>
         </div>

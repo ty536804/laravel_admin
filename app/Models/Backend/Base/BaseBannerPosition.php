@@ -12,10 +12,11 @@ class BaseBannerPosition extends Model
 
     protected $fillable=[
         'position_name', // 位置名称
+        'base_url', // 跳转地址
         'image_size', // 图片大小 长*高*宽
         'info', // 备注
         'is_show', // 状态 1显示 2隐藏
         'created_at', // 
         'updated_at', // 
     ];
-}//Created at 2020-03-25 09:31:18
+}//Created at 2020-04-01 07:50:29

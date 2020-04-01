@@ -106,9 +106,9 @@ class BannerServices
             return $this->error("位置名称不能为空");
         }
     
-        $image_size = $data['image_size'] ?? "";
-        if (empty($image_size)) {
-            return $this->error("图片大小不能为空");
+        $base_url = $data['base_url'] ?? "";
+        if (empty($base_url)) {
+            return $this->error("基础地址不能为空");
         }
     
         $id = $data['id'] ?? 0;
@@ -123,6 +123,7 @@ class BannerServices
     
         $bannerPosi->fill($data);
         if ($bannerPosi->save()) {
+            Cache::forget("menu");
             return $this->success("操作成功");
         }
         return $this->error("操作失败");
@@ -152,7 +153,7 @@ class BannerServices
         
         $areaCode = new SysAreacode();
         $cities = $areaCode->province();
-        $position = BannerPosition::where('is_show',1)->get();
+        $position = $this->menu();
         $data = [
             'admin_id' => $admin_id,
             'info' => $banner,
@@ -175,5 +176,18 @@ class BannerServices
     public function getOneBanner($id)
     {
         return Banner::find($id);
+    }
+    
+    /**
+     * @description 菜单
+     * @return mixed
+     * @auther caoxiaobin
+     * date: 2020-04-01
+     */
+    public function menu()
+    {
+        return Cache::remember("menu",Constant::VALID_TIME, function (){
+            return BannerPosition::where("is_show", 1)->get();
+        });
     }
 }

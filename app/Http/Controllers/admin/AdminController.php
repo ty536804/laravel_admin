@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\SysAdminUser;
 use App\Models\Base\BaseSysAdminUser;
 use App\Services\AdminUser;
+use App\Services\MessageServices;
 use App\Services\SysMediaBuild;
 use App\Tools\Constant;
 use App\Tools\Result;
@@ -17,15 +18,18 @@ class AdminController extends Controller{
     private $uid=0;
     private $fb;
     private $user;
-    public function __construct(SysMediaBuild $fb,AdminUser $user)
+    protected $message;
+    public function __construct(SysMediaBuild $fb,AdminUser $user,MessageServices $message)
     {
         $this->adminUser =  $user;
         $this->fb = $fb;
         $this->user =  $user;
+        $this->message = $message;
     }
     
     public function index() {
-        return view('master.home');
+        $data = $this->message->totalMessage();
+        return view('master.home', $data);
     }
     /**
      * 主页

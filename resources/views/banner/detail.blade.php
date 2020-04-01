@@ -93,7 +93,7 @@
                                         <select class="col-sm-12 form-control" id="bposition" name="bposition">
                                             <option value="">请选择</option>
                                             @foreach($position as $val)
-                                                <option value="{{$val['id']}}"  @if($info->bposition==$val['id']) selected="selected" @endif>{{$val['position_name']}}</option>
+                                                <option value="{{$val->id}}"  @if($info->bposition==$val->id) selected="selected" @endif>{{$val->position_name}}</option>
                                             @endforeach
                                         </select>
                                         <span style="color: red" id="tips">如果列表为空请到banner位置列表添加</span>

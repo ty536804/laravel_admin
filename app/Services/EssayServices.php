@@ -30,17 +30,14 @@ class EssayServices
     public function essayDetail($id)
     {
         if ($id < 1) {
-            $this->result->code = Constant::ERROR;
-            $this->result->msg = "操作失败";
-            return $this->result;
+            $info = new Essay();
+        } else {
+            $info = $this->essayOne($id);
         }
         
-        $admin_id = $this->admin->getId();
-        $info = $this->essayOne($id);
         $position = BannerPosition::where('is_show',1)->get();
-        
         $data = [
-            'admin_id' => $admin_id,
+            'admin_id' => $this->admin->getId(),
             'info' => $info,
             'position' => $position,
         ];

@@ -14,11 +14,6 @@
         .mb10 {
             margin-bottom: 10px !important;
         }
-
-        .control-label{
-            padding: 0;
-            line-height: 35px;
-        }
         .table>thead>tr>th {
             font-weight: normal;
             color: #171616;
@@ -33,7 +28,6 @@
         .bootstrap-select>.dropdown-toggle.bs-placeholder{
             background: #fff;
         }
-
     </style>
 
 @endsection
@@ -70,7 +64,7 @@
                 "columns": [
                     { "data": "id"},
                     { "data": "position_name"},
-                    { "data": "image_size"},
+                    // { "data": "image_size"},
                     { "data": "info"},
                     { "data": "is_show"},
                     { "data": "is_show"}
@@ -86,7 +80,7 @@
                             }
                             return str;
                         },
-                        "targets" :4,
+                        "targets" :3,
                     },
                     {
                         "render" : function(data, type, row,meta){
@@ -96,7 +90,7 @@
                                 return '<label class="btn btn-info btn-sm" onclick="closed('+meta.row+',1)">开启</label>&nbsp;<button  class="btn btn-default btn-sm" onclick="edit('+meta.row+')">编辑</button  >';
                             }
                         },
-                        "targets" :5,
+                        "targets" :4,
                     }
                 ]
             });
@@ -129,6 +123,7 @@
             $("#order_data #image_size").val(data.image_size);
             $("#order_data #is_show").val(data.is_show);
             $("#order_data #info").val(data.info);
+            $("#order_data #base_url").val(data.base_url);
             $("#create").modal("show");
         }
 
@@ -143,6 +138,14 @@
          * 统一提交AJAX
          * */
         function subCon() {
+            if ($.trim($("#position_name").val()) == "") {
+                sweetAlert("操作失败","名称不能为空",'error');
+                return false;
+            }
+            if ($.trim($("#base_url").val()) == "") {
+                sweetAlert("操作失败","跳转地址不能为空",'error');
+                return false;
+            }
             $.ajax({
                 type: "POST",
                 dataType: "json",
@@ -178,6 +181,7 @@
             $("#order_data #info").val("");
             $("#order_data #image_size").val("");
             $("#order_data #is_show").val(1);
+            $("#order_data #base_url").val("#");
             $("#create").modal("show");
         })
     </script>
@@ -200,8 +204,8 @@
                             <thead>
                             <tr>
                                 <th>id</th>
-                                <th>位置名称</th>
-                                <th>图片大小</th>
+                                <th>名称</th>
+{{--                                <th>图片大小</th>--}}
                                 <th>备注</th>
                                 <th>状态</th>
                                 <th>操作</th>
@@ -214,50 +218,51 @@
 {{--            <div class="modal fade in" id="create" aria-hidden="false" style="display: none;">--}}
             <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body row">
-                            <form action="" id="order_data">
+                    <div class="modal-content animated bounceInRight">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">修改密码</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal m-t" id="order_data">
+                                {{csrf_field()}}
+                                <input id="id" type="hidden" class="form-control" name="id" value="">
                                 <div class="form-group">
-                                    {{csrf_field()}}
-                                    <label class="col-sm-2 " for="content">*位置名称</label>
-                                    <input type="hidden" id="id" name="id" value="">
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" id="position_name" name="position_name" value="">
+                                    <label class="col-sm-3 control-label">名称：</label>
+                                    <div class="col-sm-8">
+                                        <input id="position_name" name="position_name" minlength="2" type="text" class="form-control"  value="">
                                     </div>
-
-                                </div>
-                                <div class="form-group" style="margin: 10px 0;">
-
-                                    <label class="col-sm-2" for="content">*图片大小</label>
-
-                                    <div class="col-sm-10"  style="margin: 10px 0;">
-                                        <input class="form-control" type="text" id="image_size" name="image_size" value="">
-                                    <span style="color: red;">格式：宽*高</span>
-                                    </div>
-
                                 </div>
                                 <div class="form-group">
-
-                                    <label class="col-sm-2" for="content">备注</label>
-
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" id="info" name="info" value="">
-                                        <br>
+                                    <label class="col-sm-3 control-label">链接地址：</label>
+                                    <div class="col-sm-8">
+                                        <input id="base_url" type="text" class="form-control" name="base_url" value="">
                                     </div>
-
                                 </div>
-                                <div class="form-group">
+{{--                                <div class="form-group">--}}
 
-                                    <label class="col-sm-2" for="content">*状态</label>
+                                    {{--                                    <label class="col-sm-2" for="content">*图片大小</label>--}}
 
-                                    <div class="col-sm-10">
-                                        <select class="form-control"  id="is_show" name="is_show" >
-                                            <option value="1">显示</option>
-                                            <option value="2">隐藏</option>
-                                        </select>
+                                    {{--                                    <div class="col-sm-10"  style="margin: 10px 0;">--}}
+                                    {{--                                        <input class="form-control" type="text" id="image_size" name="image_size" value="">--}}
+                                    {{--                                    <span style="color: red;">格式：宽*高</span>--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                </div>--}}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">备注：</label>
+                                        <div class="col-sm-8">
+                                            <input id="info" type="text" class="form-control" name="info" value="">
+                                        </div>
                                     </div>
-
-                                </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">状态:</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control"  id="is_show" name="is_show" >
+                                                <option value="1">显示</option>
+                                                <option value="2">隐藏</option>
+                                            </select>
+                                        </div>
+                                    </div>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -270,6 +275,4 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 @endsection

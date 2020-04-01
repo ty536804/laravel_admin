@@ -6,7 +6,6 @@ use App\Models\Backend\Essay;
 use App\Services\BannerServices;
 use App\Services\EssayServices;
 use App\Tools\ApiResult;
-use App\Tools\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Yajra\DataTables\Facades\DataTables;
@@ -37,9 +36,6 @@ class EssayController extends Controller
      */
     public function essayDetail() {
         $result = $this->essay->essayDetail(Input::get("id"));
-        if ($result->code == Constant::ERROR) {
-            return back()->withErrors(["内容不存在"]);
-        }
         return view("essay.detail", $result->data);
     }
     

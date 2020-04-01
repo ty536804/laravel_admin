@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Services\ArticleServices;
+use App\Services\BannerServices;
 use App\Services\FrontendServices;
 use Illuminate\Support\Facades\Input;
 
@@ -12,10 +13,13 @@ class IndexController extends Controller
     //
     protected $frontend;
     protected $article;
-    public function __construct(FrontendServices $frontend,ArticleServices $article)
+    protected $position;
+    
+    public function __construct(FrontendServices $frontend,ArticleServices $article,BannerServices $position)
     {
         $this->frontend = $frontend;
         $this->article = $article;
+        $this->position = $position;
     }
     
     /**
@@ -28,7 +32,8 @@ class IndexController extends Controller
     {
         $data["banner"] = $this->frontend->banner(1);
         $data["essay"] = $this->frontend->essay(1);
-        return view("welcome");
+        $data['menuList'] = $this->position->menu();
+        return view("welcome", $data);
     }
     
     /**
