@@ -48,12 +48,12 @@
 <script type="application/javascript">
     $(function () {
         $('#loginButton').on('click', function () {
-            if ($.trim($("#login_name").val()) == "") {
+            if ($.trim($(".uname").val()) == "") {
                 sweetAlert("登录失败","用户名不能为空",'error');
                 return false;
             }
 
-            if ($.trim($("#pwd").val()) == "") {
+            if ($.trim($(".pword").val()) == "") {
                 sweetAlert("登录失败","密码不能为空",'error');
                 return false;
             }

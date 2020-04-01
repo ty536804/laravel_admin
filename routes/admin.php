@@ -1,6 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
+Route::get('/admin', "Admin\AdminController@loginViews", function () {
+    return view('admin/login');
+});
+
+Route::get('/login', "Admin\AdminController@loginViews", function () {
+    return view('admin/login');
+});
+
 //不用登陆验证的 登陆注册
 Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
     Route::get('login', 'AdminController@loginViews');  //后台登陆页面
@@ -56,11 +64,11 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function () {
         Route::post('add','PositionController@positionAdd');
     });
     //管理员资料管理
-    Route::group(['prefix' => 'self'], function () {
-        Route::get('set','UserController@set');
-        Route::post('save','UserController@set_save');
-    });
-    
+//    Route::group(['prefix' => 'self'], function () {
+//        Route::get('set','UserController@set');
+//        Route::post('save','UserController@set_save');
+//    });
+//
     Route::group(['prefix' => 'site'], function () {
         Route::get('show','SiteController@show');
         Route::post('save','SiteController@siteSave');
