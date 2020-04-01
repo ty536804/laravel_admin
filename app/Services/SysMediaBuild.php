@@ -9,7 +9,6 @@ class SysMediaBuild
      * @param $ids
      * @return string|static
      * @description 根据IDS得到 数据
-     * @auther YaoYao
      */
     public function  getDataByIds($ids){
         $list  = BaseSysMedia::whereIn('id',explode("|",$ids))
@@ -47,7 +46,6 @@ class SysMediaBuild
      * @param $id
      * @return string
      * @description  通过文件Id获得文件信息
-     * @auther YaoYao
      */
     public  function buildFileDataById($id){
         $list  = BaseSysMedia::where('id',$id)
@@ -64,7 +62,6 @@ class SysMediaBuild
      * @param $url
      * @return string
      * @description  通过文件URL获得文件信息
-     * @auther YaoYao
      */
     public  function buildFileDataByUrl($url){
         $list  = BaseSysMedia::where('m_url',$url)
@@ -81,7 +78,6 @@ class SysMediaBuild
      * @param $info
      * @return string
      * @description  文件信息中解析出来URL
-     * @auther YaoYao
      */
     public function getUrl($info){
         $url = "";
@@ -99,7 +95,6 @@ class SysMediaBuild
      * @param $info
      * @return int
      * @description 文件信息中解析出来ID
-     * @auther YaoYao
      */
     public function getId($info){
         $id ="";
@@ -117,7 +112,6 @@ class SysMediaBuild
      * @param $info
      * @return array
      * @description 文件信息中解析出来URL 数组
-     * @auther YaoYao
      */
     public function getUrls($info){
         $info  =  json_decode($info);
@@ -141,7 +135,6 @@ class SysMediaBuild
      * @param $info
      * @return array
      * @description 文件信息中解析出来ID 数组
-     * @auther YaoYao
      */
     public function getIds($info){
         $id =array();
@@ -157,7 +150,6 @@ class SysMediaBuild
      * @param $info
      * @return string
      * @description 文件信息中解析出来ID 字符串
-     * @auther YaoYao
      */
     public function getIdsStr($info){
         $ids ="";

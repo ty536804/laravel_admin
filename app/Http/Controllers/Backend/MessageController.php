@@ -19,7 +19,8 @@ class MessageController extends Controller
         $this->message = $message;
     }
     
-    public function show() {
+    public function show()
+    {
         return view("message.index");
     }
     
@@ -30,7 +31,8 @@ class MessageController extends Controller
      * @auther caoxiaobin
      * date: 2020-03-26
      */
-    public function messageList() {
+    public function messageList()
+    {
         $list = Message::where('id','>',0);
         $databases = DataTables::eloquent($list);
         return $databases->make(true);
@@ -44,7 +46,8 @@ class MessageController extends Controller
      * @auther caoxiaobin
      * date: 2020-03-26
      */
-    public function messageSave(MessageRequest $request) {
+    public function messageSave(MessageRequest $request)
+    {
         if ($request->ajax()) {
             return $this->message->messageSave($request->all());
         }

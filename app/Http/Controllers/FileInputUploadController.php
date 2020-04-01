@@ -42,7 +42,6 @@ class FileInputUploadController extends Controller
      
      * @return string
      * @description
-     * @auther YaoYao
      */
     public function anyUpload()
     {

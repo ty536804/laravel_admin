@@ -8,7 +8,6 @@ use App\Tools\Constant;
 class AdminMethod extends Constant {
     /**
      * 获取图片的所有值
-     *  @author: al
      */
     public function getImgDefault($img_url) {
         $imgDefault =[];
@@ -38,7 +37,6 @@ class AdminMethod extends Constant {
      * @name 一天中 所有刻
      * @return array
      * @example 00:15 00:30 00:45 01:00
-     * @author: al
      */
     public function moment($begin = "2018-01-01 00:00:00",$end = "2018-01-01 24:00:00"){
         $begintime = strtotime($begin);
@@ -54,7 +52,6 @@ class AdminMethod extends Constant {
     
     /**
      * 获取所有已开通的城市id 包含全国
-     *  @author: al
      */
     public function cityNameAll() {
         $provinces = BaseSysAreacode::where([['parent_id',-1],['a_status','=','1']])->select('aid','aname')->get()->toArray();
@@ -86,7 +83,6 @@ class AdminMethod extends Constant {
     }
     /**
      * 获取所有已开通的城市id
-     *  @author: al
      */
     public function cityName() {
         $provinces = BaseSysAreacode::where([['parent_id',-1],['a_status','=','1']])->select('aid','aname')->get()->toArray();
@@ -105,7 +101,6 @@ class AdminMethod extends Constant {
     }
     /**
      * 获取所有的城市id
-     *  @author: al
      */
     public function citysNames() {
         $provinces = BaseSysAreacode::where([['parent_id',-1]])->select('aid','aname')->get()->toArray();
@@ -124,7 +119,6 @@ class AdminMethod extends Constant {
     }
     /**
      * 获取所有的城市id 名称
-     *  @author: al
      */
     public function citysIdNames() {
         foreach ($this->cityNameAll() as $v){
@@ -137,7 +131,6 @@ class AdminMethod extends Constant {
      * start  开始时间
      * end    结束时间
      * 获取开始到结束时间 中间的所有月份
-     *  @author: al
      */
     function showMonthRange($start, $end)
     {
@@ -157,7 +150,6 @@ class AdminMethod extends Constant {
      * 查询数组中所有的子级
      * $array 需要传输的的数组
      * $parent_id 从父id 0开始
-     *  @author: al
      */
     public function get_categories_tree_array($array,$parent_id=0,$new_array=[]){
         foreach ($array as $key=>$val){
@@ -175,7 +167,6 @@ class AdminMethod extends Constant {
     /**
      * 获取当前用户的城市
      * All 是全国
-     *  @author: al
      */
     public function getAdminCity(){
         $city =new AdminUser();
@@ -206,7 +197,6 @@ class AdminMethod extends Constant {
      * @return float|string
      * @val 返回 列 1天1小时1分钟
      * $val $startdate 开始时间   $enddate 结束时间
-     * @author: al
      */
     function timeDifference($startdate,$enddate){
         if (empty($startdate) || empty($startdate) || ($enddate < $startdate)){

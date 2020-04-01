@@ -73,7 +73,6 @@ class AdminUser
     {
         $actions = explode('\\', \Route::current()->getActionName());
         $action = end($actions);
-//        Log::info("===============当前Action====$action");
         $leftMenuCache = Cache::remember('leftMenu_' . $this->getId(), 4800, function () {
             $leftMenuCache = null;
             $userInfo = $this->getUser();
@@ -139,7 +138,6 @@ class AdminUser
             }
         }
         unset($leftMenuCache['allpower']);
-//        Log::info("==MYMENU===".json_encode($leftMenuCache));
         return $leftMenuCache;
     }
     
@@ -159,6 +157,4 @@ class AdminUser
         }
         return $routes->groupBy('action');
     }
-    
-    
 }

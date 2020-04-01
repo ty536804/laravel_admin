@@ -2,9 +2,11 @@
 namespace App\Services;
 
 use App\Models\Backend\Message;
+use App\Tools\ApiResult;
 
 class MessageServices
 {
+    use ApiResult;
     /**
      * @description 留言提交
      * @param $request
@@ -18,18 +20,7 @@ class MessageServices
         $message->fill($data);
         if ($message->save()) {
             return $this->success("留言成功");
-        } else {
-            return $this->error("留言失败");
         }
-    }
-    
-    /**
-     * @description 获取一条留言
-     * @auther caoxiaobin
-     * date: 2020-04-01
-     */
-    public function getOneMessage()
-    {
-    
+        return $this->error("留言失败");
     }
 }
