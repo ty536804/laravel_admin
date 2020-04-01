@@ -3,15 +3,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SiteRequest;
-use App\Models\Admin\Site;
+use App\Services\SiteServices;
 use App\Tools\ApiResult;
-use App\Tools\Constant;
-use Illuminate\Support\Facades\Cache;
 
 class SiteController extends Controller
 {
     //
     use ApiResult;
+    protected $site;
+    public function __construct(SiteServices $site)
+    {
+        $this->site = $site;
+    }
     
     /**
      * @description 站点信息
@@ -21,7 +24,7 @@ class SiteController extends Controller
      */
     public function show()
     {
-        $site = $this->siteInfo();
+        $site = $this->site->siteInfo();
         return view("admin.site", ['info' => $site]);
     }
     
@@ -35,32 +38,8 @@ class SiteController extends Controller
     public function siteSave(SiteRequest $request)
     {
         if ($request->ajax()) {
-            $id = $request->post("id", 0);
-            if ($id < 1) {
-                $site = new Site();
-            } else {
-                $site = Site::find($id);
-            }
-            $site->fill($request->all());
-            if ($site->save()) {
-                Cache::forget("site_info");
-                return $this->success("操作成功");
-            } else {
-                return $this->error("操作失败");
-            }
+            return $this->site->siteSave($request->all());
         }
         return $this->error("操作失败");
-    }
-    
-    /**
-     * @description 存入缓存
-     * @return mixed
-     * @auther caoxiaobin
-     * date: 2020-03-31
-     */
-    public function siteInfo() {
-        return Cache::remember("site_info",Constant::VALID_TIME, function () {
-            return Site::first();
-        });
     }
 }
