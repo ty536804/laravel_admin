@@ -26,7 +26,7 @@ class SysAdminUserTable extends Migration
             $table->string('position_id',150)->nullable()->comment("职位 角色");
             $table->text('city_id')->comment("城市id");
             $table->integer('status')->default('1')->comment("状态 1 正常 -1 锁定");
-            $table->integer('project_id')->default('0')->comment("归属项目 0系统 1 简洗 2快递 3工单");
+            $table->integer('project_id')->default('0')->comment("归属项目 0系统");
             $table->timestamps();
         });
     }
