@@ -154,9 +154,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="btn-group">
-                        <button class="btn btn-default" data-dismiss="modal" id="cancel" type="button">取消
-                        </button>
-                        <button class="btn btn-success" id="button_id" type="button">保存</button>
+                        <button class="btn btn-default" data-dismiss="modal" id="cancel" type="button">取消</button>
+                        {{--<button class="btn btn-success" id="button_id" type="button">保存</button>--}}
                     </div>
                 </div>
             </div>
