@@ -128,6 +128,10 @@
             return table;
         }
 
+        /**
+         * 删除
+         * @param id
+         */
         function del(id) {
             swal({
                 title: "确定要删除吗？",

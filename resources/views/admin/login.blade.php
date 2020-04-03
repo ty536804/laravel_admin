@@ -22,7 +22,6 @@
 <div class="signinpanel">
     <div class="row">
         <div class="col-sm-7 animated fadeInLeft">
-
         </div>
         <div class="col-sm-5 animated fadeInRight">
             <form id="addform" name="addform">

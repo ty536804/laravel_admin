@@ -40,7 +40,6 @@ if(!empty($userinfo)){
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-
                             @if(empty($userinfo->m_url))
                                  <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
                             @else

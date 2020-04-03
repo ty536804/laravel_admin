@@ -43,6 +43,9 @@
             selectedTextFormat:"count > 5"
         });
 
+        /**
+         * 提交内容
+         */
         $(document).on('click','#button_id',function () {
             if ($.trim($("#title").val()) == "") {
                 sweetAlert("操作失败","标题不能为空",'error');

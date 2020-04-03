@@ -23,6 +23,9 @@
 
         });
 
+        /**
+         * 提交内容
+         */
         $('#addpower').on('click', function () {
             $.ajax({
                 type: "POST",

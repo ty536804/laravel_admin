@@ -93,7 +93,9 @@
             return table;
         }
 
-
+        /**
+         * 查看内容
+         */
         function edit() {
             $('.modal-title').empty().html('查看');
             let index  = Number(id),

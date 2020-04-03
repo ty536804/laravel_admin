@@ -39,6 +39,9 @@
             selectedTextFormat:"count > 5"
         });
 
+        /**
+         * 提交内容
+         */
         $(document).on('click','#button_id',function () {
             $.ajax({
                 type: "POST",

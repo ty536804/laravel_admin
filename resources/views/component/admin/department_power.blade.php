@@ -1,5 +1,3 @@
-
-
 <div class="chart tab-pane" id="dept_power">
     <div class="box-body">
         <form class="form-horizontal m-t" id="edit_power">
@@ -20,6 +18,5 @@
                 <hr>
             @endforeach
         </form>
-
     </div>
 </div>
