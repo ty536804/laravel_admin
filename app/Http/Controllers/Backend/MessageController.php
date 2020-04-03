@@ -29,7 +29,6 @@ class MessageController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function messageList()
     {
@@ -44,7 +43,6 @@ class MessageController extends Controller
      * @param MessageRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function messageSave(MessageRequest $request)
     {

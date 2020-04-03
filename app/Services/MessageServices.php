@@ -13,7 +13,6 @@ class MessageServices
      * @param $request
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     function messageSave($request) {
         $message = new Message();
@@ -29,7 +28,6 @@ class MessageServices
      * @description 统计当日留言数量
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     function totalMessage()
     {
@@ -74,7 +72,6 @@ class MessageServices
      * @param $param
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function countMessage($param)
     {

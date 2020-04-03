@@ -24,10 +24,9 @@ class BannerServices
     
     /**
      * @description 删除banner
-     * @param $id
+     * @param $id bannerID
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function bannerDel($id)
     {
@@ -46,10 +45,9 @@ class BannerServices
     
     /**
      * @description 编辑banner
-     * @param $data
+     * @param $data post提交的所有数据
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function bannerSave($data)
     {
@@ -95,10 +93,9 @@ class BannerServices
     
     /**
      * @description banner位置
-     * @param $data
+     * @param $data post提交的所有数据
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function positionSave($data) {
         $position_name = $data['position_name'] ?? "";
@@ -131,10 +128,9 @@ class BannerServices
     
     /**
      * @description 详情
-     * @param $id
+     * @param $id bannerID
      * @return Result
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function bannerDetail($id)
     {
@@ -168,10 +164,9 @@ class BannerServices
     
     /**
      * @description 获取单个banner
-     * @param $id
+     * @param $id bannerID
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function getOneBanner($id)
     {
@@ -182,7 +177,6 @@ class BannerServices
      * @description 菜单
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function menu()
     {

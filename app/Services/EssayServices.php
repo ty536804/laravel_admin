@@ -25,7 +25,6 @@ class EssayServices
      * @param $id
      * @return Result
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function essayDetail($id)
     {
@@ -52,7 +51,6 @@ class EssayServices
      * @param $data
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function essaySave($data)
     {
@@ -81,11 +79,10 @@ class EssayServices
     }
     
     /**
-     * @description 删除谋篇文章
+     * @description 删除某篇文章
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function essayDel($id) {
         if ($id < 1) {
@@ -105,10 +102,9 @@ class EssayServices
     
     /**
      * @description 通过ID获取一条记录
-     * @param $id
+     * @param $id 文章ID
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function essayOne($id) {
         return Essay::find($id);

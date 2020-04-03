@@ -21,7 +21,6 @@ class UserServices
      * @param $data
      * @return Result
      * @auther caoxiaobin
-     * date: 2020-03-24
      */
     public function updateInfo($data) {
         

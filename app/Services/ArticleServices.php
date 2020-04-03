@@ -23,7 +23,6 @@ class ArticleServices
      * @param $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function articleSave($request)
     {
@@ -50,6 +49,12 @@ class ArticleServices
         }
     }
     
+    /**
+     * @description 详情
+     * @param $id 文章ID
+     * @return Result 返回结果
+     * @auther xiaobin
+     */
     public function articleDetail($id)
     {
         if ($id >=1) {
@@ -73,10 +78,9 @@ class ArticleServices
     
     /**
      * @description 获取一条信息
-     * @param $id
+     * @param $id 文章ID
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function getOneArticle($id)
     {
@@ -85,10 +89,9 @@ class ArticleServices
     
     /**
      * @description 文章列表
-     * @param $page
+     * @param $page 当前页数
      * @return float|int
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function articleList($page)
     {
@@ -103,10 +106,9 @@ class ArticleServices
     
     /**
      * @description 获取偏移数
-     * @param $page
+     * @param $page 当前页数
      * @return float|int
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function pageInfo($page)
     {

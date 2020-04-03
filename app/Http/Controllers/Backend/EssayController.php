@@ -23,6 +23,11 @@ class EssayController extends Controller
         $this->essay = $essay;
     }
     
+    /**
+     * @description 首页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @auther xiaobin
+     */
     public function index()
     {
         return view("essay.index");
@@ -32,7 +37,6 @@ class EssayController extends Controller
      * @description 详情页
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-30
      */
     public function essayDetail() {
         $result = $this->essay->essayDetail(Input::get("id"));
@@ -44,7 +48,6 @@ class EssayController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-30
      */
     public function essayAdd(Request $request) {
         if ($request->ajax()) {
@@ -56,7 +59,6 @@ class EssayController extends Controller
     /**
      * @description
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function easyList()
     {
@@ -72,7 +74,6 @@ class EssayController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function essayDel(Request $request) {
         if ($request->ajax()) {
@@ -86,7 +87,6 @@ class EssayController extends Controller
      * @description 关于魔数
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function aboutMagic() {
         return view("essay.magic");
@@ -96,7 +96,6 @@ class EssayController extends Controller
      * @description 课程体系
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function course() {
         return view("essay.course");
@@ -106,7 +105,6 @@ class EssayController extends Controller
      * @description 教学
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function research()
     {
@@ -117,7 +115,6 @@ class EssayController extends Controller
      * @description AI学习平台
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function learn()
     {
@@ -128,7 +125,6 @@ class EssayController extends Controller
      * @description OMO模式
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function omoMode(){
         return view("essay.omo_mode");
@@ -138,7 +134,6 @@ class EssayController extends Controller
      * @description 全国校区
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function all( ) {
         return view("essay.all");
@@ -148,7 +143,6 @@ class EssayController extends Controller
      * @description 加盟授权
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function join(){
         return view("essay.join");
@@ -158,7 +152,6 @@ class EssayController extends Controller
      * @description APP下载
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function appDown(){
         return view("essay.down");

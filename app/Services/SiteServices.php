@@ -38,7 +38,6 @@ class SiteServices
      * @description 存入缓存
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function siteInfo() {
         return Cache::remember("site_info",Constant::VALID_TIME, function () {

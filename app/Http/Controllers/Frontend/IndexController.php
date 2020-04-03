@@ -27,7 +27,6 @@ class IndexController extends Controller
      * @description 首页信息
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function index()
     {
@@ -42,7 +41,6 @@ class IndexController extends Controller
     /**
      * @description 关于魔数
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function about()
     {
@@ -54,7 +52,6 @@ class IndexController extends Controller
     /**
      * @description 课程体系
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function essay()
     {
@@ -67,7 +64,6 @@ class IndexController extends Controller
      * @description 教研教学
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function learn()
     {
@@ -79,7 +75,6 @@ class IndexController extends Controller
     /**
      * @description AI学习平台
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function study()
     {
@@ -92,7 +87,6 @@ class IndexController extends Controller
      * @description OMO模式
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function omoMode()
     {
@@ -104,7 +98,6 @@ class IndexController extends Controller
     /**
      * @description 全国校区
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function school()
     {
@@ -117,7 +110,6 @@ class IndexController extends Controller
      * @description 魔数动态
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function list()
     {
@@ -128,7 +120,6 @@ class IndexController extends Controller
     /**
      * @description 魔数动态详情
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function detail()
     {

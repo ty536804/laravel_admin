@@ -30,7 +30,6 @@ class BannerController extends Controller
      * @description banner列表
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-25
      */
     public function index() {
         $areaCode = new SysAreacode();
@@ -43,7 +42,6 @@ class BannerController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      * @auther caoxiaobin
-     * date: 2020-03-25
      */
     public function bannerList()
     {
@@ -57,7 +55,6 @@ class BannerController extends Controller
      * @description 添加banner详情页
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function bannerDetail()
     {
@@ -73,7 +70,6 @@ class BannerController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function bannerSave(Request $request) {
         if ($request->ajax()) {
@@ -87,7 +83,6 @@ class BannerController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function bannerDel(Request $request)
     {
@@ -100,7 +95,6 @@ class BannerController extends Controller
     /**
      * @description 轮播图展示位置
      * @auther caoxiaobin
-     * date: 2020-03-25
      */
     public function positionList() {
         return view("banner.list");
@@ -112,7 +106,6 @@ class BannerController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      * @auther caoxiaobin
-     * date: 2020-03-25
      */
     public function positionData()
     {
@@ -127,7 +120,6 @@ class BannerController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-25
      */
     public function positionSave(Request $request) {
         if ($request->ajax()) {

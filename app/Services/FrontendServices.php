@@ -10,11 +10,10 @@ class FrontendServices
 {
     
     /**
-     * @description 获取banner
-     * @param $id
+     * @description 获取某个导航下的所有banner
+     * @param $id int 导航ID
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function banner($id)
     {
@@ -28,11 +27,10 @@ class FrontendServices
     }
     
     /**
-     * @description 获取信息
-     * @param $id
+     * @description 获取某个导航下面的相关信息
+     * @param $id int 导航ID
      * @return mixed
      * @auther caoxiaobin
-     * date: 2020-04-01
      */
     public function essay($id)
     {

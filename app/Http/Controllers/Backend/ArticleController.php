@@ -37,7 +37,6 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function articleList() {
         $list = Article::where('id','>',0);
@@ -50,7 +49,6 @@ class ArticleController extends Controller
      * @param ArticleRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function articleSave(ArticleRequest $request)
     {
@@ -64,7 +62,6 @@ class ArticleController extends Controller
      * @description 添加文章详情页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function articleDetail() {
         $result = $this->article->articleDetail(Input::get("id"));
@@ -77,7 +74,6 @@ class ArticleController extends Controller
     /**
      * @description 首页
      * @auther caoxiaobin
-     * date: 2020-03-30
      */
     public function articleShow()
     {
@@ -88,7 +84,6 @@ class ArticleController extends Controller
      * @description 首页
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-30
      */
     public function articleAdd()
     {
