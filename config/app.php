@@ -65,7 +65,7 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
-
+    "company" => "易学教育科技有限公司",
 //    'timezone' => 'UTC',
     'timezone' => 'Asia/Shanghai',
     /*

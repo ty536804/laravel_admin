@@ -57,7 +57,6 @@ class PositionController extends Controller
      * @description 职位列表
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-30
      */
     public function list(){
         $position = BaseSysAdminPosition::all()->keyBy('id');
@@ -114,7 +113,6 @@ class PositionController extends Controller
      * @param AdminPositionRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-30
      */
     public function update(AdminPositionRequest $request){
         $result =new Result();
@@ -151,7 +149,6 @@ class PositionController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-30
      */
     public function positionAdd(Request $request)
     {

@@ -78,7 +78,6 @@ class PowerController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-25
      */
     public function save(Request $request){
         $result =new Result();
@@ -108,7 +107,6 @@ class PowerController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-25
      */
     public function delete(Request $request){
         $result =new Result();

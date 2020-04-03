@@ -38,7 +38,6 @@ class UserController extends Controller
      * @param Request $request
      * @return Result|\Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-24
      */
     public function change(Request $request) {
         if ($request->ajax()) {
@@ -55,7 +54,6 @@ class UserController extends Controller
      * @param Request $request
      * @return Result|\Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-24
      */
     public function updateInfo(Request $request) {
         if ($request->ajax()) {
@@ -86,7 +84,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function getListData(){
         $list = SysAdminUser::where('sys_admin_user.id','>',0)->select('sys_admin_user.id','nick_name','email','tel','login_name',
@@ -104,7 +101,6 @@ class UserController extends Controller
      * @param AdminUserRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function save(AdminUserRequest $request){
         $result =new Result();
@@ -150,7 +146,6 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-26
      */
     public function delete(Request $request){
         $result =new Result();

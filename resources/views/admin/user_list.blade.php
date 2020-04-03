@@ -110,12 +110,12 @@
          */
         function del(id,_status) {
             swal({
-                    title: "确定删除吗？",
-                    text: "你将无法恢复该虚拟文件！",
+                    title: "确定"+(_status==1 ? '开启':"禁止")+"吗？",
+                    // text: "你将无法恢复该虚拟文件！",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定删除！",
+                    confirmButtonText: "确定！",
                     closeOnConfirm: false
                 },
                 function(){

@@ -5,6 +5,11 @@ use App\Models\Base\BaseSysAreacode;
 
 class SysAreacode extends BaseSysAreacode
 {
+    /**
+     * @description 获取省
+     * @return mixed
+     * @auther xiaobin
+     */
     public function province()
     {
         return SysAreacode::select('id','aname')->where("parent_id", '-1')->get();

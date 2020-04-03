@@ -20,7 +20,6 @@ class SiteController extends Controller
      * @description 站点信息
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function show()
     {
@@ -33,7 +32,6 @@ class SiteController extends Controller
      * @param SiteRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @auther caoxiaobin
-     * date: 2020-03-31
      */
     public function siteSave(SiteRequest $request)
     {

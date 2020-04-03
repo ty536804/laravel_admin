@@ -189,90 +189,90 @@
 
 
 @section('content')
-    <section class="content">
-        <div class="row">
-            <div class="col-xs-12">
-
-                <div class="box">
-                    <div class="col-xs-12 mt10 mb10">
-                        <div>
-                            <button class="btn btn-primary" id="add">新建</button >
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <table id="mytable" class="table table-bordered table-striped" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>名称</th>
-{{--                                <th>图片大小</th>--}}
-                                <th>备注</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div><!-- /.box-body -->
-                </div><!-- /.box -->
-            </div><!-- /.col -->
-{{--            <div class="modal fade in" id="create" aria-hidden="false" style="display: none;">--}}
-            <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content animated bounceInRight">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title">修改密码</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal m-t" id="order_data">
-                                {{csrf_field()}}
-                                <input id="id" type="hidden" class="form-control" name="id" value="">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">名称：</label>
-                                    <div class="col-sm-8">
-                                        <input id="position_name" name="position_name" minlength="2" type="text" class="form-control"  value="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">链接地址：</label>
-                                    <div class="col-sm-8">
-                                        <input id="base_url" type="text" class="form-control" name="base_url" value="">
-                                    </div>
-                                </div>
-{{--                                <div class="form-group">--}}
-
-                                    {{--                                    <label class="col-sm-2" for="content">*图片大小</label>--}}
-
-                                    {{--                                    <div class="col-sm-10"  style="margin: 10px 0;">--}}
-                                    {{--                                        <input class="form-control" type="text" id="image_size" name="image_size" value="">--}}
-                                    {{--                                    <span style="color: red;">格式：宽*高</span>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                </div>--}}
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">备注：</label>
-                                        <div class="col-sm-8">
-                                            <input id="info" type="text" class="form-control" name="info" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">状态:</label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control"  id="is_show" name="is_show" >
-                                                <option value="1">显示</option>
-                                                <option value="2">隐藏</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="btn-group">
-                                <button class="btn btn-default" data-dismiss="modal" id="cancel" type="button">取消
-                                </button>
-                                <button class="btn btn-success" id="button_id" type="button">保存</button>
-                            </div>
-                        </div>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="col-xs-12 mt10 mb10">
+                    <div>
+                        <button class="btn btn-primary" id="add">新建</button >
                     </div>
                 </div>
+                <div class="box-body">
+                    <table id="mytable" class="table table-bordered table-striped" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>名称</th>
+{{--                                <th>图片大小</th>--}}
+                            <th>备注</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+{{--            <div class="modal fade in" id="create" aria-hidden="false" style="display: none;">--}}
+<div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">修改密码</h4>
             </div>
+            <div class="modal-body">
+                <form class="form-horizontal m-t" id="order_data">
+                    {{csrf_field()}}
+                    <input id="id" type="hidden" class="form-control" name="id" value="">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">名称：</label>
+                        <div class="col-sm-8">
+                            <input id="position_name" name="position_name" minlength="2" type="text" class="form-control"  value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">链接地址：</label>
+                        <div class="col-sm-8">
+                            <input id="base_url" type="text" class="form-control" name="base_url" value="">
+                        </div>
+                    </div>
+{{--                                <div class="form-group">--}}
+
+                        {{--                                    <label class="col-sm-2" for="content">*图片大小</label>--}}
+
+                        {{--                                    <div class="col-sm-10"  style="margin: 10px 0;">--}}
+                        {{--                                        <input class="form-control" type="text" id="image_size" name="image_size" value="">--}}
+                        {{--                                    <span style="color: red;">格式：宽*高</span>--}}
+                        {{--                                    </div>--}}
+                        {{--                                </div>--}}
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注：</label>
+                            <div class="col-sm-8">
+                                <input id="info" type="text" class="form-control" name="info" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">状态:</label>
+                            <div class="col-sm-8">
+                                <select class="form-control"  id="is_show" name="is_show" >
+                                    <option value="1">显示</option>
+                                    <option value="2">隐藏</option>
+                                </select>
+                            </div>
+                        </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button class="btn btn-default" data-dismiss="modal" id="cancel" type="button">取消
+                    </button>
+                    <button class="btn btn-success" id="button_id" type="button">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
